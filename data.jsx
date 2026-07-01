@@ -1,0 +1,707 @@
+/* =========================================================
+   Curriculum data — 8 modules / 32 chapters (intermediate)
+   ---------------------------------------------------------
+   Metadata only (bilingual). Teaching content lives in
+   content/<id>.<lang>.md and is fetched on the chapter page.
+   ========================================================= */
+
+const MODULES = [
+  {
+    id: "m1", code: "E1", zh: "时态与动词", en: "Tenses & Verbs", accent: "primary", level: 2,
+    tagline: { zh: "把时态用对,句子才站得住。", en: "Get the tense right and the sentence holds." },
+    description: {
+      zh: "复习并深化现在、过去、完成、将来时态,以及情态动词的用法与细微差别——中级英语的地基。",
+      en: "Review and deepen present, past, perfect and future tenses, plus modals — the bedrock of intermediate English.",
+    },
+  },
+  {
+    id: "m2", code: "E2", zh: "句法结构", en: "Sentence Structure", accent: "primary", level: 2,
+    tagline: { zh: "从简单句到复杂句,把逻辑说清楚。", en: "From simple to complex — say what you mean clearly." },
+    description: {
+      zh: "复合句、条件句、被动语态、间接引语——让表达更精确、更书面、更地道。",
+      en: "Complex clauses, conditionals, passive voice and reported speech — for precision and natural flow.",
+    },
+  },
+  {
+    id: "m3", code: "E3", zh: "词汇与搭配", en: "Vocabulary & Collocations", accent: "primary", level: 2,
+    tagline: { zh: "单词不是孤岛,搭配才是语言。", en: "Words aren't islands; collocations are the language." },
+    description: {
+      zh: "构词、短语动词、同义词与语域、习语——扩大词汇量,并学会「怎么用」而不只是「什么意思」。",
+      en: "Word formation, phrasal verbs, register and idioms — grow vocabulary and learn how words actually combine.",
+    },
+  },
+  {
+    id: "m4", code: "E4", zh: "阅读", en: "Reading", accent: "primary", level: 2,
+    tagline: { zh: "读得快,也要读得深。", en: "Read fast — and read deep." },
+    description: {
+      zh: "略读寻读、推理语气、学术与新闻长文——训练在中级材料里抓主旨、辨态度、跟论证。",
+      en: "Skimming, inference, academic and news texts — grasp main ideas, tone and argument in real material.",
+    },
+  },
+  {
+    id: "m5", code: "E5", zh: "写作", en: "Writing", accent: "primary", level: 3,
+    tagline: { zh: "写清楚,比写漂亮更重要。", en: "Clear beats flashy every time." },
+    description: {
+      zh: "段落结构、议论文、正式与商务文体、修改与连贯——把想法落成可读、可说服的英文。",
+      en: "Paragraphs, essays, formal and business writing, editing for coherence — turn ideas into readable English.",
+    },
+  },
+  {
+    id: "m6", code: "E6", zh: "听力", en: "Listening", accent: "primary", level: 2,
+    tagline: { zh: "耳朵要适应「连起来」的英语。", en: "Train your ear for connected speech." },
+    description: {
+      zh: "连读弱读、讲座演讲、口音与语流、听记要点——从「听懂单词」到「听懂意思」。",
+      en: "Linking, lectures, accents and note-taking — from catching words to catching meaning.",
+    },
+  },
+  {
+    id: "m7", code: "E7", zh: "口语", en: "Speaking", accent: "accent", level: 3,
+    tagline: { zh: "开口说,比背一百遍管用。", en: "Speaking once beats drilling a hundred times." },
+    description: {
+      zh: "发音重音、流利度、讨论辩论、展示汇报——在中级阶段把「能交流」练成「敢表达」。",
+      en: "Pronunciation, fluency, discussion and presentations — move from getting by to speaking up.",
+    },
+  },
+  {
+    id: "m8", code: "E8", zh: "考试与实用", en: "Exam & Practical", accent: "accent", level: 3,
+    tagline: { zh: "考场之外,英语还要「能用」.", en: "Beyond exams — English has to work in real life." },
+    description: {
+      zh: "雅思托福策略、面试、邮件消息、文化与语用——把英语接到你的目标场景里。",
+      en: "Test strategies, interviews, email, pragmatics — plug English into the situations you actually face.",
+    },
+  },
+];
+
+const CHAPTERS = [
+  /* ============ E1 Tenses & Verbs ============ */
+  {
+    id: "t1", code: "TV1", moduleId: "m1", difficulty: 2, hours: 8, prereq: [], practice: "present",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "现在时态", en: "Present Tenses" },
+    summary: { zh: "一般现在与现在进行:何时用哪种,以及常见中式错误。", en: "Present simple vs continuous: when to use which, and typical L1 mistakes." },
+    objectives: [
+      { zh: "区分一般现在与现在进行的用法", en: "Distinguish present simple and continuous" },
+      { zh: "掌握状态动词与进行时的限制", en: "Know stative verbs and progressive restrictions" },
+      { zh: "会用现在时描述习惯、事实与进行中的动作", en: "Describe habits, facts and ongoing actions" },
+      { zh: "识别并改正常见时态混用", en: "Spot and fix common tense mixing" },
+    ],
+    outline: [
+      { zh: "一般现在:习惯、事实、日程", en: "Present simple: habits, facts, schedules" },
+      { zh: "现在进行:此刻、临时、变化趋势", en: "Present continuous: now, temporary, trends" },
+      { zh: "状态动词列表与例外", en: "Stative verbs and exceptions" },
+      { zh: "always 等进行时中的特殊含义", en: "Special meaning with always + continuous" },
+      { zh: "对比练习与易错点", en: "Contrast drills and pitfalls" },
+    ],
+  },
+  {
+    id: "t2", code: "TV2", moduleId: "m1", difficulty: 2, hours: 8, prereq: ["t1"], practice: "past",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "过去时态", en: "Past Tenses" },
+    summary: { zh: "一般过去与过去进行,叙述故事与时间线。", en: "Past simple and continuous — storytelling and timelines." },
+    objectives: [
+      { zh: "掌握一般过去与过去进行的对比", en: "Contrast past simple and continuous" },
+      { zh: "会用 when/while 连接背景与事件", en: "Use when/while for background and events" },
+      { zh: "叙述经历与按时间排序", en: "Narrate experiences in sequence" },
+      { zh: "避免过度使用 was/were + -ing", en: "Avoid overusing past continuous" },
+    ],
+    outline: [
+      { zh: "一般过去:完成动作与时间点", en: "Past simple: completed actions" },
+      { zh: "过去进行:背景与被打断的动作", en: "Past continuous: background and interruption" },
+      { zh: "时间连接词 when / while / as", en: "When / while / as" },
+      { zh: "叙述技巧与段落组织", en: "Narration and paragraph flow" },
+      { zh: "不规则动词复习策略", en: "Irregular verb review strategies" },
+    ],
+  },
+  {
+    id: "t3", code: "TV3", moduleId: "m1", difficulty: 3, hours: 10, prereq: ["t2"], practice: "perfect",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "完成时态", en: "Perfect Tenses" },
+    summary: { zh: "现在完成与过去完成:经验、结果、先后顺序。", en: "Present and past perfect: experience, results and sequence." },
+    objectives: [
+      { zh: "理解「与现在有联系」的完成时", en: "Grasp the link to now in perfect tenses" },
+      { zh: "掌握 for/since/already/yet/just", en: "Use for, since, already, yet, just" },
+      { zh: "会用过去完成表示「过去的过去」", en: "Use past perfect for earlier past" },
+      { zh: "区分英式美式对现在完成的用法差异", en: "Note BrE/AmE differences with present perfect" },
+    ],
+    outline: [
+      { zh: "现在完成:经验、结果、未完成", en: "Present perfect: experience, result, unfinished" },
+      { zh: "for / since / 时间段", en: "For / since / time periods" },
+      { zh: "过去完成与时间轴", en: "Past perfect on a timeline" },
+      { zh: "与简单过去的选用", en: "Choosing perfect vs simple past" },
+      { zh: "常见错误与修正", en: "Common errors and fixes" },
+    ],
+  },
+  {
+    id: "t4", code: "TV4", moduleId: "m1", difficulty: 3, hours: 9, prereq: ["t3"], practice: "modals",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "将来时与情态", en: "Future & Modals" },
+    summary: { zh: "will/be going to/现在进行表将来,以及 can/must/should 等。", en: "Future forms and modals: will, going to, can, must, should and more." },
+    objectives: [
+      { zh: "比较 will / be going to / present for future", en: "Compare future forms" },
+      { zh: "掌握主要情态动词的语气与否定", en: "Master modals for ability, obligation, advice" },
+      { zh: "理解 must vs have to / should vs ought to", en: "Distinguish near-synonymous modals" },
+      { zh: "在正式与非正式语境中选词", en: "Choose modals by register" },
+    ],
+    outline: [
+      { zh: "将来时的三种常见表达", en: "Three common future forms" },
+      { zh: "情态:能力、许可、义务、推测", en: "Modals: ability, permission, obligation, deduction" },
+      { zh: "半情态 have to / need to", en: "Semi-modals" },
+      { zh: "委婉建议与拒绝", en: "Soft suggestions and refusals" },
+      { zh: "写作与口语中的语气选择", en: "Tone in writing and speech" },
+    ],
+  },
+
+  /* ============ E2 Sentence Structure ============ */
+  {
+    id: "s1", code: "SS1", moduleId: "m2", difficulty: 2, hours: 9, prereq: ["t1"], practice: "clauses",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "复合句与从句", en: "Complex Sentences & Clauses" },
+    summary: { zh: "名词、形容词、副词从句——把短句扩展成有层次的句子。", en: "Noun, adjective and adverb clauses — expand simple sentences with structure." },
+    objectives: [
+      { zh: "识别三种从句的功能", en: "Identify three clause types" },
+      { zh: "掌握关系代词与关系副词", en: "Use relative pronouns and adverbs" },
+      { zh: "会用 that/whether/if 引导名词从句", en: "Lead noun clauses with that/whether/if" },
+      { zh: "避免 run-on 与 comma splice", en: "Avoid run-ons and comma splices" },
+    ],
+    outline: [
+      { zh: "独立句与从句", en: "Independent and dependent clauses" },
+      { zh: "定语从句:限定与非限定", en: "Relative clauses: defining and non-defining" },
+      { zh: "名词从句作主语/宾语", en: "Noun clauses as subjects/objects" },
+      { zh: "状语从句:时间、原因、让步", en: "Adverb clauses: time, reason, concession" },
+      { zh: "标点与从句位置", en: "Punctuation and clause position" },
+    ],
+  },
+  {
+    id: "s2", code: "SS2", moduleId: "m2", difficulty: 2, hours: 8, prereq: ["s1"], practice: "conditionals",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "条件句", en: "Conditionals" },
+    summary: { zh: "零到第三类条件句,以及 unless / as long as 等变体。", en: "Zero through third conditionals, plus unless and as long as." },
+    objectives: [
+      { zh: "掌握四类条件句的形式与意义", en: "Master four conditional types" },
+      { zh: "区分真实与虚拟条件", en: "Separate real and unreal conditions" },
+      { zh: "会用混合条件与倒装 if", en: "Use mixed conditionals and inverted if" },
+      { zh: "在写作中表达建议与假设", en: "Express advice and hypotheticals in writing" },
+    ],
+    outline: [
+      { zh: "零条件与第一条件", en: "Zero and first conditional" },
+      { zh: "第二条件:与现在/将来相反", en: "Second conditional: unreal present/future" },
+      { zh: "第三条件:与过去相反", en: "Third conditional: unreal past" },
+      { zh: "混合条件与 unless", en: "Mixed conditionals and unless" },
+      { zh: "wish / if only 相关表达", en: "Wish and if only" },
+    ],
+  },
+  {
+    id: "s3", code: "SS3", moduleId: "m2", difficulty: 2, hours: 8, prereq: ["t2"], practice: "passive",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "被动语态", en: "Passive Voice" },
+    summary: { zh: "各时态的被动形式,以及何时「该用被动」.", en: "Passive in every tense — and when it actually helps." },
+    objectives: [
+      { zh: "构成各时态的被动式", en: "Form passive in major tenses" },
+      { zh: "理解施事者省略与 by-phrase", en: "Omit agent vs use by-phrase" },
+      { zh: "掌握 get-passive 与感官被动", en: "Know get-passive and sensory passives" },
+      { zh: "在学术与新闻文体中选用被动", en: "Use passive in academic and news style" },
+    ],
+    outline: [
+      { zh: "被动基本结构 be + past participle", en: "Basic passive structure" },
+      { zh: "各时态被动对照表", en: "Passive across tenses" },
+      { zh: "不及物动词与无被动", en: "Intransitives: no passive" },
+      { zh: "主动 vs 被动的语用选择", en: "Pragmatic choice: active vs passive" },
+      { zh: "常见错误:及物动词遗漏宾语", en: "Errors: missing object with transitive verbs" },
+    ],
+  },
+  {
+    id: "s4", code: "SS4", moduleId: "m2", difficulty: 3, hours: 8, prereq: ["s1", "t2"], practice: "reported",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "间接引语", en: "Reported Speech" },
+    summary: { zh: "转述陈述、疑问与祈使,以及时态后退规则。", en: "Report statements, questions and commands — backshift and exceptions." },
+    objectives: [
+      { zh: "掌握 say/tell/ask 的用法区别", en: "Distinguish say, tell and ask" },
+      { zh: "应用时态后退与时间词变化", en: "Apply backshift and time-word shifts" },
+      { zh: "转述疑问句与祈使句", en: "Report questions and imperatives" },
+      { zh: "识别不必后退的例外情况", en: "Know when backshift isn't required" },
+    ],
+    outline: [
+      { zh: "直接引语 vs 间接引语", en: "Direct vs reported speech" },
+      { zh: "时态后退规则", en: "Backshift rules" },
+      { zh: "转述疑问:语序变化", en: "Reporting questions: word order" },
+      { zh: "转述建议、命令、请求", en: "Reporting suggestions and orders" },
+      { zh: "新闻报道中的引述", en: "Reporting in news writing" },
+    ],
+  },
+
+  /* ============ E3 Vocabulary ============ */
+  {
+    id: "v1", code: "VX1", moduleId: "m3", difficulty: 2, hours: 7, prereq: [],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "构词法", en: "Word Formation" },
+    summary: { zh: "前缀、后缀、词根——见词猜义,扩大词汇网。", en: "Prefixes, suffixes and roots — guess meaning and grow your network." },
+    objectives: [
+      { zh: "识别常见前缀与后缀", en: "Recognize common affixes" },
+      { zh: "区分词性转换(-tion/-ment/-ize)", en: "Convert word class with suffixes" },
+      { zh: "用构词法记一批学术词汇", en: "Learn academic words via formation" },
+      { zh: "避免「假朋友」式猜词", en: "Avoid false friends when guessing" },
+    ],
+    outline: [
+      { zh: "前缀:否定与程度", en: "Prefixes: negation and degree" },
+      { zh: "名词/形容词/动词后缀", en: "Noun, adjective, verb suffixes" },
+      { zh: "复合词与合成", en: "Compounds" },
+      { zh: "词根与同源词", en: "Roots and cognates" },
+      { zh: "词汇笔记本方法", en: "Vocabulary notebook method" },
+    ],
+  },
+  {
+    id: "v2", code: "VX2", moduleId: "m3", difficulty: 2, hours: 10, prereq: ["v1"], practice: "phrasal",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "短语动词与搭配", en: "Phrasal Verbs & Collocations" },
+    summary: { zh: "look up, give up, take off…以及 make a decision 类固定搭配。", en: "Phrasal verbs and strong collocations like make a decision." },
+    objectives: [
+      { zh: "理解短语动词的及物/不及物与可分性", en: "Transitive/intransitive and separable phrasals" },
+      { zh: "掌握高频短语动词一批", en: "Master a core set of phrasal verbs" },
+      { zh: "学会查搭配词典与语料", en: "Use collocation dictionaries and corpora" },
+      { zh: "在口语中自然使用短语动词", en: "Use phrasals naturally in speech" },
+    ],
+    outline: [
+      { zh: "短语动词结构", en: "Structure of phrasal verbs" },
+      { zh: "字面义 vs 引申义", en: "Literal vs idiomatic meaning" },
+      { zh: "强搭配:动词+名词", en: "Strong verb + noun collocations" },
+      { zh: "形容词+名词搭配", en: "Adjective + noun collocations" },
+      { zh: "主题词汇簇(工作/学习)", en: "Topic-based word clusters" },
+    ],
+  },
+  {
+    id: "v3", code: "VX3", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "同义词与语域", en: "Synonyms & Register" },
+    summary: { zh: "big/large/great, ask/request/inquire——近义不同用。", en: "Near-synonyms differ: ask vs request vs inquire." },
+    objectives: [
+      { zh: "区分正式/中性/非正式用词", en: "Distinguish formal, neutral, informal" },
+      { zh: "选用同义词时注意搭配限制", en: "Respect collocation with synonyms" },
+      { zh: "在邮件与论文中选 appropriate 词汇", en: "Choose words for email vs essays" },
+      { zh: "用语料库验证搭配", en: "Verify with corpus examples" },
+    ],
+    outline: [
+      { zh: "语域:spoken vs written", en: "Register: spoken vs written" },
+      { zh: "同义词辨析方法", en: "How to compare synonyms" },
+      { zh: "学术词汇 AWL 入门", en: "Academic Word List intro" },
+      { zh: "避免堆砌「大词」", en: "Avoid pompous word stacking" },
+      { zh: "改写练习:升降正式度", en: "Rewriting for register shift" },
+    ],
+  },
+  {
+    id: "v4", code: "VX4", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "习语与固定表达", en: "Idioms & Fixed Expressions" },
+    summary: { zh: "break the ice, piece of cake——理解文化,别逐字翻译。", en: "Idioms like break the ice — culture, not word-for-word." },
+    objectives: [
+      { zh: "理解习语的整体意义", en: "Grasp idioms as chunks" },
+      { zh: "掌握常见主题习语一批", en: "Learn themed idioms" },
+      { zh: "区分可用与过时的表达", en: "Spot dated vs current idioms" },
+      { zh: "在合适场合使用,避免过度", en: "Use idioms sparingly and appropriately" },
+    ],
+    outline: [
+      { zh: "习语 vs 字面短语", en: "Idioms vs literal phrases" },
+      { zh: "隐喻与来源", en: "Metaphor and origin" },
+      { zh: "商务与日常习语", en: "Business and everyday idioms" },
+      { zh: "固定搭配句型", en: "Fixed sentence frames" },
+      { zh: "跨文化误读警示", en: "Cross-cultural pitfalls" },
+    ],
+  },
+
+  /* ============ E4 Reading ============ */
+  {
+    id: "r1", code: "RD1", moduleId: "m4", difficulty: 2, hours: 8, prereq: ["v2"], practice: "reading",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "略读与寻读", en: "Skimming & Scanning" },
+    summary: { zh: "快速抓主旨、定位细节——阅读不是每个词都读。", en: "Grab the gist and find details — you don't read every word." },
+    objectives: [
+      { zh: "会用标题/首段预测内容", en: "Predict from titles and openings" },
+      { zh: "略读抓主旨与结构", en: "Skim for gist and structure" },
+      { zh: "寻读定位数字、名字、日期", en: "Scan for numbers, names, dates" },
+      { zh: "制定考试时间分配策略", en: "Plan time in timed reading" },
+    ],
+    outline: [
+      { zh: "阅读目的决定读法", en: "Purpose drives method" },
+      { zh: "略读三步法", en: "Three-step skimming" },
+      { zh: "寻读信号词", en: "Scanning cues" },
+      { zh: "段落主题句", en: "Topic sentences" },
+      { zh: "练习:新闻与说明文", en: "Practice: news and expository texts" },
+    ],
+  },
+  {
+    id: "r2", code: "RD2", moduleId: "m4", difficulty: 2, hours: 9, prereq: ["r1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "推理与语气", en: "Inference & Tone" },
+    summary: { zh: "作者没明说的意思,以及态度是支持还是讽刺。", en: "What the author implies — and whether they're sincere or ironic." },
+    objectives: [
+      { zh: "从上下文推断生词义", en: "Infer word meaning from context" },
+      { zh: "识别作者态度与立场", en: "Identify attitude and stance" },
+      { zh: "理解讽刺与隐含批评", en: "Read irony and implicit criticism" },
+      { zh: "区分 fact vs opinion", en: "Separate fact from opinion" },
+    ],
+    outline: [
+      { zh: "语境猜词", en: "Context clues" },
+      { zh: "态度词与评价语言", en: "Attitude markers" },
+      { zh: "推理题常见类型", en: "Inference question types" },
+      { zh: "语气: formal / neutral / critical", en: "Tone labels" },
+      { zh: "评论文精读一篇", en: "Close read one opinion piece" },
+    ],
+  },
+  {
+    id: "r3", code: "RD3", moduleId: "m4", difficulty: 3, hours: 10, prereq: ["r2", "s1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "学术阅读", en: "Academic Reading" },
+    summary: { zh: "论文摘要、教科书章节——跟论证,不跟生词跑。", en: "Abstracts and textbook chapters — follow the argument, not every unknown word." },
+    objectives: [
+      { zh: "读懂 IMRaD 结构", en: "Navigate IMRaD structure" },
+      { zh: "识别 thesis 与 supporting claims", en: "Find thesis and support" },
+      { zh: "处理长句与嵌入从句", en: "Parse long embedded clauses" },
+      { zh: "做结构化读书笔记", en: "Take structured reading notes" },
+    ],
+    outline: [
+      { zh: "学术文本特征", en: "Features of academic texts" },
+      { zh: "摘要阅读法", en: "Reading abstracts" },
+      { zh: "论证图式", en: "Argument mapping" },
+      { zh: "引用与转述识别", en: "Spot citations and paraphrase" },
+      { zh: "略读整章策略", en: "Skimming a full chapter" },
+    ],
+  },
+  {
+    id: "r4", code: "RD4", moduleId: "m4", difficulty: 3, hours: 9, prereq: ["r2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "新闻与长文", en: "News & Long-form" },
+    summary: { zh: "倒金字塔、特写与专栏——不同体裁,不同读法。", en: "Inverted pyramid, features and columns — genre shapes reading." },
+    objectives: [
+      { zh: "适应新闻导语结构", en: "Handle news lead structure" },
+      { zh: "比较长文与短消息", en: "Compare long-form vs brief news" },
+      { zh: "跨文化新闻用语", en: "Cross-cultural news language" },
+      { zh: "建立可持续的外刊习惯", en: "Build a sustainable reading habit" },
+    ],
+    outline: [
+      { zh: "倒金字塔", en: "Inverted pyramid" },
+      { zh: "特写与人物稿", en: "Features and profiles" },
+      { zh: "专栏与评论", en: "Columns and op-eds" },
+      { zh: "假新闻与来源核查", en: "Fake news and source checking" },
+      { zh: "推荐阅读清单", en: "Suggested reading list" },
+    ],
+  },
+
+  /* ============ E5 Writing ============ */
+  {
+    id: "w1", code: "WR1", moduleId: "m5", difficulty: 2, hours: 8, prereq: ["s1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "段落结构", en: "Paragraph Structure" },
+    summary: { zh: "主题句、展开、例证、小结——一段只讲一个中心。", en: "Topic sentence, development, example, wrap — one main idea per paragraph." },
+    objectives: [
+      { zh: "写出清晰主题句", en: "Write clear topic sentences" },
+      { zh: "用例证与解释展开", en: "Develop with examples and explanation" },
+      { zh: "使用连接词体现逻辑", en: "Use linkers for logic" },
+      { zh: "避免中式段落布局", en: "Avoid L1 paragraph patterns" },
+    ],
+    outline: [
+      { zh: "TEEL / PEEL 结构", en: "TEEL / PEEL structure" },
+      { zh: "统一性与连贯性", en: "Unity and coherence" },
+      { zh: "连接词分类", en: "Linkers by function" },
+      { zh: "段落长度与节奏", en: "Paragraph length and rhythm" },
+      { zh: "修改 checklist", en: "Revision checklist" },
+    ],
+  },
+  {
+    id: "w2", code: "WR2", moduleId: "m5", difficulty: 3, hours: 10, prereq: ["w1", "s2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "议论文", en: "Argumentative Essays" },
+    summary: { zh: "立场、论据、反驳——像辩论一样写。", en: "Claim, evidence, counterargument — write like you debate." },
+    objectives: [
+      { zh: "提出明确 thesis", en: "State a clear thesis" },
+      { zh: "组织 body 与反驳段", en: "Structure body and rebuttal" },
+      { zh: "避免 logical fallacies", en: "Avoid logical fallacies" },
+      { zh: "写结论而不重复开头", en: "Conclude without repeating the intro" },
+    ],
+    outline: [
+      { zh: "议论文 vs 说明文", en: "Argument vs exposition" },
+      { zh: "引言 hook 与 thesis", en: "Intro hook and thesis" },
+      { zh: "主体段论证", en: "Body argumentation" },
+      { zh: "处理 counterargument", en: "Handling counterarguments" },
+      { zh: "雅思/托福 Task 2 框架", en: "IELTS/TOEFL Task 2 frame" },
+    ],
+  },
+  {
+    id: "w3", code: "WR3", moduleId: "m5", difficulty: 3, hours: 9, prereq: ["w1", "v3"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "正式与商务写作", en: "Formal & Business Writing" },
+    summary: { zh: "邮件、报告、备忘录——语气礼貌,信息清楚。", en: "Email, reports, memos — polite tone, clear information." },
+    objectives: [
+      { zh: "掌握商务邮件结构", en: "Master business email structure" },
+      { zh: "选用正式称呼与结尾", en: "Choose formal openings and closings" },
+      { zh: "写清楚 purpose 与 action items", en: "State purpose and action items" },
+      { zh: "避免过于直接或模糊", en: "Avoid blunt or vague wording" },
+    ],
+    outline: [
+      { zh: "邮件组成部分", en: "Email components" },
+      { zh: "请求、道歉、跟进", en: "Requests, apologies, follow-ups" },
+      { zh: "报告与摘要", en: "Reports and summaries" },
+      { zh: "语气: direct vs indirect cultures", en: "Direct vs indirect cultures" },
+      { zh: "模板与个性化平衡", en: "Templates vs personalization" },
+    ],
+  },
+  {
+    id: "w4", code: "WR4", moduleId: "m5", difficulty: 3, hours: 8, prereq: ["w2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "修改与连贯", en: "Editing & Coherence" },
+    summary: { zh: "自己当编辑:删冗余,补连接,统一时态与人称。", en: "Be your own editor: cut fluff, add links, unify tense and voice." },
+    objectives: [
+      { zh: "分层修改:内容/结构/语言", en: "Revise in layers: content, structure, language" },
+      { zh: "检查指代与重复", en: "Check reference and repetition" },
+      { zh: "朗读法找拗口句", en: "Read aloud for awkwardness" },
+      { zh: "使用校对工具但不盲信", en: "Use tools but don't trust blindly" },
+    ],
+    outline: [
+      { zh: "修改流程", en: "Revision workflow" },
+      { zh: "连贯:代词与替换", en: "Coherence: pronouns and substitution" },
+      { zh: "简洁:砍掉冗余", en: "Concision: cut redundancy" },
+      { zh: "语法与标点终审", en: "Final grammar and punctuation pass" },
+      { zh: "同伴互改方法", en: "Peer review method" },
+    ],
+  },
+
+  /* ============ E6 Listening ============ */
+  {
+    id: "l1", code: "LS1", moduleId: "m6", difficulty: 2, hours: 8, prereq: ["t1"], practice: "listening",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "连读与弱读", en: "Connected Speech" },
+    summary: { zh: "连读、省音、弱读——词典发音和真实口语不一样。", en: "Linking, elision, weak forms — real speech isn't dictionary speech." },
+    objectives: [
+      { zh: "识别常见连读模式", en: "Recognize linking patterns" },
+      { zh: "掌握功能词弱读", en: "Know weak forms of function words" },
+      { zh: "听写练耳朵分辨音素", en: "Use dictation for phoneme discrimination" },
+      { zh: "适应自然语速材料", en: "Adapt to natural-speed audio" },
+    ],
+    outline: [
+      { zh: "连读规则入门", en: "Linking rules intro" },
+      { zh: "弱读: of / to / and", en: "Weak forms" },
+      { zh: "省音与同化", en: "Elision and assimilation" },
+      { zh: "听力材料分级", en: "Graded listening materials" },
+      { zh: "跟读 shadowing 练习", en: "Shadowing practice" },
+    ],
+  },
+  {
+    id: "l2", code: "LS2", moduleId: "m6", difficulty: 2, hours: 9, prereq: ["l1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "讲座与演讲", en: "Lectures & Talks" },
+    summary: { zh: "信号词、结构词、重读——听清「要点在哪」.", en: "Signposting and stress — hear where the point is." },
+    objectives: [
+      { zh: "识别讲座结构信号", en: "Catch lecture signposts" },
+      { zh: "区分例子与核心观点", en: "Separate examples from main points" },
+      { zh: "应对口音与背景噪音", en: "Handle accent and noise" },
+      { zh: "预览幻灯片辅助理解", en: "Use slides to support comprehension" },
+    ],
+    outline: [
+      { zh: "讲座开场与 roadmap", en: "Lecture openings and roadmaps" },
+      { zh: "列举与对比信号词", en: "Listing and contrast markers" },
+      { zh: "TED 式演讲特点", en: "TED-style talk features" },
+      { zh: "听前预测", en: "Pre-listening prediction" },
+      { zh: "听后自检", en: "Post-listening self-check" },
+    ],
+  },
+  {
+    id: "l3", code: "LS3", moduleId: "m6", difficulty: 3, hours: 9, prereq: ["l1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "口音与语流", en: "Accents & Fast Speech" },
+    summary: { zh: "英音、美音、澳音——变体多,但规律仍可学。", en: "BrE, AmE, AusE — variants abound, patterns still learnable." },
+    objectives: [
+      { zh: "了解主要 accent 差异", en: "Know major accent differences" },
+      { zh: "在快语流中抓关键词", en: "Catch keywords in fast speech" },
+      { zh: "减少「听懂每个词」执念", en: "Let go of catching every word" },
+      { zh: "多口音 exposure 计划", en: "Plan multi-accent exposure" },
+    ],
+    outline: [
+      { zh: "rhotic vs non-rhotic", en: "Rhotic vs non-rhotic" },
+      { zh: "元音差异举例", en: "Vowel differences" },
+      { zh: "语流中的信息层次", en: "Information hierarchy in speech" },
+      { zh: "播客与访谈推荐", en: "Podcast and interview picks" },
+      { zh: "自适应策略", en: "Adaptation strategies" },
+    ],
+  },
+  {
+    id: "l4", code: "LS4", moduleId: "m6", difficulty: 3, hours: 8, prereq: ["l2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "听记要点", en: "Note-taking While Listening" },
+    summary: { zh: "缩写、符号、分层记录——听的同时留痕迹。", en: "Abbreviations, symbols, layers — leave a trail while you listen." },
+    objectives: [
+      { zh: "建立个人缩写系统", en: "Build a personal shorthand" },
+      { zh: "区分记录 vs 听", en: "Balance noting vs listening" },
+      { zh: "用笔记支持听后复述", en: "Use notes for retelling" },
+      { zh: "考试场景时间分配", en: "Time management in tests" },
+    ],
+    outline: [
+      { zh: "Cornell 笔记法", en: "Cornell note method" },
+      { zh: "只记关键词", en: "Keywords only" },
+      { zh: "符号系统", en: "Symbol system" },
+      { zh: "听后整理", en: "Post-listening cleanup" },
+      { zh: "模拟考试练习", en: "Mock test practice" },
+    ],
+  },
+
+  /* ============ E7 Speaking ============ */
+  {
+    id: "p1", code: "SP1", moduleId: "m7", difficulty: 2, hours: 8, prereq: ["l1"], practice: "pronunciation",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "发音与重音", en: "Pronunciation & Stress" },
+    summary: { zh: "音标、单词重音、句重音——让人听得懂你在说什么。", en: "Phonetics, word and sentence stress — be understood." },
+    objectives: [
+      { zh: "使用 IPA 查发音", en: "Use IPA in dictionaries" },
+      { zh: "掌握单词重音规则", en: "Apply word stress rules" },
+      { zh: "练习句重音与节奏", en: "Practice sentence stress and rhythm" },
+      { zh: "录音对比自我纠正", en: "Record and compare for self-correction" },
+    ],
+    outline: [
+      { zh: "IPA 入门", en: "IPA intro" },
+      { zh: "元音对比练习", en: "Vowel contrast drills" },
+      { zh: "辅音难点: th / v / r", en: "Consonant trouble spots" },
+      { zh: "重音决定词性", en: "Stress shifts meaning (noun/verb)" },
+      { zh: "节奏与 chunking", en: "Rhythm and chunking" },
+    ],
+  },
+  {
+    id: "p2", code: "SP2", moduleId: "m7", difficulty: 2, hours: 8, prereq: ["p1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "流利度", en: "Fluency" },
+    summary: { zh: "填充词、停顿、自我修正——流利不是完美。", en: "Fillers, pauses, self-repair — fluency isn't perfection." },
+    objectives: [
+      { zh: "减少不当停顿与沉默", en: "Reduce awkward pauses" },
+      { zh: "自然使用 well / you know", en: "Use fillers naturally" },
+      { zh: "学会 paraphrase 绕开生词", en: "Paraphrase around unknown words" },
+      { zh: "延长回答而非单字回复", en: "Extend answers beyond one word" },
+    ],
+    outline: [
+      { zh: "流利 vs 准确", en: "Fluency vs accuracy" },
+      { zh: "填充与话语标记", en: "Fillers and discourse markers" },
+      { zh: "自我修正策略", en: "Self-correction strategies" },
+      { zh: "话题扩展技巧", en: "Extending topics" },
+      { zh: "日常口语任务", en: "Everyday speaking tasks" },
+    ],
+  },
+  {
+    id: "p3", code: "SP3", moduleId: "m7", difficulty: 3, hours: 9, prereq: ["p2", "s2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "讨论与辩论", en: "Discussion & Debate" },
+    summary: { zh: "表达观点、同意反对、举例反驳——对话不是独白。", en: "Agree, disagree, support, rebut — conversation isn't a monologue." },
+    objectives: [
+      { zh: "礼貌表达不同意见", en: "Disagree politely" },
+      { zh: "用例子支撑观点", en: "Support views with examples" },
+      { zh: "总结他人观点再回应", en: "Summarize then respond" },
+      { zh: "控制话轮不垄断", en: "Share the floor" },
+    ],
+    outline: [
+      { zh: "观点表达句型", en: "Opinion frames" },
+      { zh: "同意与部分同意", en: "Agree and partial agree" },
+      { zh: "反驳与让步", en: "Rebuttal and concession" },
+      { zh: "小组讨论角色", en: "Roles in group discussion" },
+      { zh: "辩论赛基本结构", en: "Basic debate structure" },
+    ],
+  },
+  {
+    id: "p4", code: "SP4", moduleId: "m7", difficulty: 3, hours: 10, prereq: ["p2", "w1"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "展示与汇报", en: "Presentations" },
+    summary: { zh: "开场、主体、Q&A——把一页页要点说成故事。", en: "Opening, body, Q&A — turn bullet points into a story." },
+    objectives: [
+      { zh: "设计清晰 presentation 结构", en: "Structure a presentation clearly" },
+      { zh: "使用视觉辅助而非念稿", en: "Use visuals, don't read slides" },
+      { zh: "处理提问与未知问题", en: "Handle Q&A and unknowns" },
+      { zh: "控制语速与 eye contact", en: "Manage pace and eye contact" },
+    ],
+    outline: [
+      { zh: "开场 hook", en: "Opening hook" },
+      { zh: "主体 signposting", en: "Body signposting" },
+      { zh: "图表描述语言", en: "Describing charts" },
+      { zh: "结尾与 call to action", en: "Closing and call to action" },
+      { zh: "彩排 checklist", en: "Rehearsal checklist" },
+    ],
+  },
+
+  /* ============ E8 Exam & Practical ============ */
+  {
+    id: "x1", code: "XP1", moduleId: "m8", difficulty: 3, hours: 10, prereq: ["r2", "w2"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "雅思与托福策略", en: "IELTS & TOEFL Strategies" },
+    summary: { zh: "四科题型、评分逻辑、备考节奏——考试是项目,不是碰运气。", en: "Four skills, scoring logic, study rhythm — exams are projects, not luck." },
+    objectives: [
+      { zh: "了解两类考试结构差异", en: "Compare IELTS and TOEFL formats" },
+      { zh: "制定分科备考计划", en: "Plan prep by skill" },
+      { zh: "识别各题型时间陷阱", en: "Spot time traps per question type" },
+      { zh: "用真题而非只刷技巧", en: "Use real tests, not tricks alone" },
+    ],
+    outline: [
+      { zh: "考试对比总览", en: "Exam comparison overview" },
+      { zh: "阅读/听力题型地图", en: "Reading/listening question maps" },
+      { zh: "写作评分标准解读", en: "Writing rubrics decoded" },
+      { zh: "口语评分维度", en: "Speaking assessment criteria" },
+      { zh: "8 周备考表示例", en: "Sample 8-week schedule" },
+    ],
+  },
+  {
+    id: "x2", code: "XP2", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["p2", "w3"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "面试英语", en: "Interview English" },
+    summary: { zh: "自我介绍、STAR 答法、薪资与反问——职场第一印象。", en: "Intro, STAR answers, salary and questions — first impressions at work." },
+    objectives: [
+      { zh: "准备 1/3 分钟自我介绍", en: "Prepare 1- and 3-minute intros" },
+      { zh: "用 STAR 回答行为题", en: "Answer behavioral questions with STAR" },
+      { zh: "描述优势而不自夸过头", en: "State strengths without boasting" },
+      { zh: "准备 thoughtful 反问", en: "Prepare thoughtful questions back" },
+    ],
+    outline: [
+      { zh: "面试流程与语言", en: "Interview flow and language" },
+      { zh: "常见问题的英文框架", en: "Frames for common questions" },
+      { zh: "弱点题怎么答", en: "Answering weakness questions" },
+      { zh: "视频面试注意点", en: "Video interview tips" },
+      { zh: "跟进 thank-you email", en: "Thank-you follow-up email" },
+    ],
+  },
+  {
+    id: "x3", code: "XP3", moduleId: "m8", difficulty: 2, hours: 7, prereq: ["w3"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "邮件与消息", en: "Email & Messaging" },
+    summary: { zh: "Subject line、礼貌程度、表情符号边界——频道不同,规矩不同。", en: "Subject lines, politeness, emoji boundaries — channel matters." },
+    objectives: [
+      { zh: "写清晰 subject 与首句", en: "Write clear subjects and openings" },
+      { zh: "区分 email / chat / 社交媒体", en: "Separate email, chat and social" },
+      { zh: "跟进与催办不失礼", en: "Follow up politely" },
+      { zh: "跨时区沟通", en: "Cross-time-zone communication" },
+    ],
+    outline: [
+      { zh: "邮件礼仪", en: "Email etiquette" },
+      { zh: "即时消息特点", en: "Instant messaging norms" },
+      { zh: "附件与抄送", en: "Attachments and CC" },
+      { zh: "常见模板", en: "Common templates" },
+      { zh: "文化差异案例", en: "Cross-cultural cases" },
+    ],
+  },
+  {
+    id: "x4", code: "XP4", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["v4", "p3"],
+    nExamples: 5, nExercises: 6,
+    title: { zh: "文化与语用", en: "Culture & Pragmatics" },
+    summary: { zh: "礼貌、幽默、禁忌——说得对,还要说得体。", en: "Politeness, humor, taboos — correct isn't always appropriate." },
+    objectives: [
+      { zh: "理解 directness 文化差异", en: "Understand directness across cultures" },
+      { zh: "识别语用失败案例", en: "Spot pragmatic failure" },
+      { zh: "在多元环境中调整表达", en: "Adjust in multicultural settings" },
+      { zh: "建立跨文化观察习惯", en: "Build cross-cultural observation habits" },
+    ],
+    outline: [
+      { zh: "礼貌理论入门", en: "Politeness theory intro" },
+      { zh: "请求与拒绝的间接性", en: "Indirect requests and refusals" },
+      { zh: "幽默与讽刺风险", en: "Humor and irony risks" },
+      { zh: "身体语言与副语言", en: "Body language and paralanguage" },
+      { zh: "案例讨论", en: "Case discussions" },
+    ],
+  },
+];
+
+const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
+const TOTAL_EXAMPLES = CHAPTERS.reduce((s, c) => s + c.nExamples, 0);
+
+window.MODULES = MODULES;
+window.CHAPTERS = CHAPTERS;
+window.TOTAL_HOURS = TOTAL_HOURS;
+window.TOTAL_EXAMPLES = TOTAL_EXAMPLES;

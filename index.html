@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hans" data-lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>英语自学 · self-taught English</title>
+<meta name="description" content="面向中级学习者的中英双语英语自学站。A bilingual self-study site for intermediate English learners." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="styles.css?v=2" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js" crossorigin="anonymous"></script>
+  <script src="firebase-config.js"></script>
+  <script src="firebase-init.js"></script>
+
+  <script type="text/babel" src="i18n.jsx?v=2"></script>
+  <script type="text/babel" src="data.jsx?v=2"></script>
+  <script type="text/babel" src="practice.jsx?v=2"></script>
+  <script type="text/babel" src="auth.jsx?v=2"></script>
+  <script type="text/babel" src="roadmap.jsx?v=2"></script>
+  <script type="text/babel" src="pages.jsx?v=2"></script>
+  <script type="text/babel" src="app.jsx?v=2"></script>
+</body>
+</html>
