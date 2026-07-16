@@ -204,6 +204,9 @@ const UI = {
   fill_word:       { zh: "填空", en: "Fill in the blank" },
   no_tts:          { zh: "(浏览器不支持朗读)", en: "(browser has no speech)" },
   no_practice:     { zh: "本章暂无交互练习。", en: "No interactive practice for this chapter yet." },
+  scene_title:     { zh: "情景对话", en: "In context" },
+  scene_label:     { zh: "情景 {n}", en: "Scene {n}" },
+  scene_hint:      { zh: "地道口语场景 · 点喇叭听单句,点标题旁的喇叭听整段 · 中文仅作参考", en: "Real-life colloquial scenes · tap a line's speaker to hear it, or the speaker by the title to play the whole scene · Chinese is only a gloss" },
 
   /* ---- auth ---- */
   auth_welcome:    { zh: "WELCOME BACK", en: "WELCOME BACK" },

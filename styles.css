@@ -1334,6 +1334,68 @@ button { font-family: inherit; }
 .practice-hint { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0 0 14px; font-family: var(--f-body); }
 .practice-caption { font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 12px; font-family: var(--f-body); }
 
+/* ---- Contextual scenes (colloquial dialogues) ---- */
+.scene-wrap { display: flex; flex-direction: column; gap: 18px; margin: 4px 0 8px; }
+.scene {
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-2);
+  padding: 14px 16px 16px;
+}
+.scene-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+.scene-tag {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 3px 8px;
+  border-radius: 1px;
+  white-space: nowrap;
+}
+.scene-situation { font-family: var(--f-body); font-size: 13.5px; color: var(--ink-soft); font-weight: 600; flex: 1; min-width: 0; }
+.scene-play-all { margin-left: auto; }
+.scene-lines { display: flex; flex-direction: column; gap: 12px; }
+.scene-line { display: flex; align-items: flex-start; gap: 10px; }
+.scene-who {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  color: var(--muted);
+  margin-top: 2px;
+}
+.scene-line.who-a .scene-who { color: var(--accent); border-color: var(--accent); }
+.scene-line.who-b .scene-who { color: var(--ink); border-color: var(--hairline-strong); background: var(--hairline); }
+.scene-bubble { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.scene-say { display: inline-flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.scene-say .en-text { font-family: var(--f-display); font-style: italic; font-size: 1.06em; line-height: 1.5; color: var(--ink); }
+.scene-zh { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.scene-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin-top: 2px;
+  border-left: 2px solid var(--accent);
+  background: var(--hairline);
+}
+
 /* "FREE · 交互练习" badge on section headers */
 .cs-block h2 .h2-row {
   display: flex;

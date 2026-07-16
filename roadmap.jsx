@@ -1,5 +1,5 @@
 /* =========================================================
-   Roadmap — subway-style SVG (8 modules × 4 chapters)
+   Roadmap — subway-style SVG (9 modules × 4 chapters)
    ========================================================= */
 
 const Roadmap = ({ progress, onCourseClick, height = 520 }) => {

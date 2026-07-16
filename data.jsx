@@ -1,5 +1,5 @@
 /* =========================================================
-   Curriculum data — 8 modules / 32 chapters (intermediate)
+   Curriculum data — 9 modules / 36 chapters (intermediate)
    ---------------------------------------------------------
    Metadata only (bilingual). Teaching content lives in
    content/<id>.<lang>.md and is fetched on the chapter page.
@@ -68,6 +68,14 @@ const MODULES = [
     description: {
       zh: "雅思托福策略、面试、邮件消息、文化与语用——把英语接到你的目标场景里。",
       en: "Test strategies, interviews, email, pragmatics — plug English into the situations you actually face.",
+    },
+  },
+  {
+    id: "m9", code: "E9", zh: "考研英语", en: "Kaoyan English", accent: "accent", level: 3,
+    tagline: { zh: "针对考研,把英语练成分数。", en: "Turn English into a score for the grad exam." },
+    description: {
+      zh: "面向研究生入学考试(英语一/英语二):完形填空、阅读理解、新题型、英译汉与大小作文——按题型逐一拆解,配真题式技巧与练习。",
+      en: "For China's postgraduate entrance exam (English I / II): cloze, reading, new question types, translation and essays — broken down by task with exam-style tactics and drills.",
     },
   },
 ];
@@ -231,7 +239,7 @@ const CHAPTERS = [
 
   /* ============ E3 Vocabulary ============ */
   {
-    id: "v1", code: "VX1", moduleId: "m3", difficulty: 2, hours: 7, prereq: [],
+    id: "v1", code: "VX1", moduleId: "m3", difficulty: 2, hours: 7, prereq: [], practice: "wordform",
     nExamples: 5, nExercises: 6,
     title: { zh: "构词法", en: "Word Formation" },
     summary: { zh: "前缀、后缀、词根——见词猜义,扩大词汇网。", en: "Prefixes, suffixes and roots — guess meaning and grow your network." },
@@ -269,7 +277,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "v3", code: "VX3", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"],
+    id: "v3", code: "VX3", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"], practice: "register",
     nExamples: 5, nExercises: 6,
     title: { zh: "同义词与语域", en: "Synonyms & Register" },
     summary: { zh: "big/large/great, ask/request/inquire——近义不同用。", en: "Near-synonyms differ: ask vs request vs inquire." },
@@ -288,7 +296,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "v4", code: "VX4", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"],
+    id: "v4", code: "VX4", moduleId: "m3", difficulty: 3, hours: 8, prereq: ["v2"], practice: "idioms",
     nExamples: 5, nExercises: 6,
     title: { zh: "习语与固定表达", en: "Idioms & Fixed Expressions" },
     summary: { zh: "break the ice, piece of cake——理解文化,别逐字翻译。", en: "Idioms like break the ice — culture, not word-for-word." },
@@ -328,7 +336,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "r2", code: "RD2", moduleId: "m4", difficulty: 2, hours: 9, prereq: ["r1"],
+    id: "r2", code: "RD2", moduleId: "m4", difficulty: 2, hours: 9, prereq: ["r1"], practice: "inference",
     nExamples: 5, nExercises: 6,
     title: { zh: "推理与语气", en: "Inference & Tone" },
     summary: { zh: "作者没明说的意思,以及态度是支持还是讽刺。", en: "What the author implies — and whether they're sincere or ironic." },
@@ -347,7 +355,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "r3", code: "RD3", moduleId: "m4", difficulty: 3, hours: 10, prereq: ["r2", "s1"],
+    id: "r3", code: "RD3", moduleId: "m4", difficulty: 3, hours: 10, prereq: ["r2", "s1"], practice: "academic",
     nExamples: 5, nExercises: 6,
     title: { zh: "学术阅读", en: "Academic Reading" },
     summary: { zh: "论文摘要、教科书章节——跟论证,不跟生词跑。", en: "Abstracts and textbook chapters — follow the argument, not every unknown word." },
@@ -366,7 +374,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "r4", code: "RD4", moduleId: "m4", difficulty: 3, hours: 9, prereq: ["r2"],
+    id: "r4", code: "RD4", moduleId: "m4", difficulty: 3, hours: 9, prereq: ["r2"], practice: "news",
     nExamples: 5, nExercises: 6,
     title: { zh: "新闻与长文", en: "News & Long-form" },
     summary: { zh: "倒金字塔、特写与专栏——不同体裁,不同读法。", en: "Inverted pyramid, features and columns — genre shapes reading." },
@@ -387,7 +395,7 @@ const CHAPTERS = [
 
   /* ============ E5 Writing ============ */
   {
-    id: "w1", code: "WR1", moduleId: "m5", difficulty: 2, hours: 8, prereq: ["s1"],
+    id: "w1", code: "WR1", moduleId: "m5", difficulty: 2, hours: 8, prereq: ["s1"], practice: "paragraph",
     nExamples: 5, nExercises: 6,
     title: { zh: "段落结构", en: "Paragraph Structure" },
     summary: { zh: "主题句、展开、例证、小结——一段只讲一个中心。", en: "Topic sentence, development, example, wrap — one main idea per paragraph." },
@@ -406,7 +414,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "w2", code: "WR2", moduleId: "m5", difficulty: 3, hours: 10, prereq: ["w1", "s2"],
+    id: "w2", code: "WR2", moduleId: "m5", difficulty: 3, hours: 10, prereq: ["w1", "s2"], practice: "essay",
     nExamples: 5, nExercises: 6,
     title: { zh: "议论文", en: "Argumentative Essays" },
     summary: { zh: "立场、论据、反驳——像辩论一样写。", en: "Claim, evidence, counterargument — write like you debate." },
@@ -425,7 +433,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "w3", code: "WR3", moduleId: "m5", difficulty: 3, hours: 9, prereq: ["w1", "v3"],
+    id: "w3", code: "WR3", moduleId: "m5", difficulty: 3, hours: 9, prereq: ["w1", "v3"], practice: "business",
     nExamples: 5, nExercises: 6,
     title: { zh: "正式与商务写作", en: "Formal & Business Writing" },
     summary: { zh: "邮件、报告、备忘录——语气礼貌,信息清楚。", en: "Email, reports, memos — polite tone, clear information." },
@@ -444,7 +452,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "w4", code: "WR4", moduleId: "m5", difficulty: 3, hours: 8, prereq: ["w2"],
+    id: "w4", code: "WR4", moduleId: "m5", difficulty: 3, hours: 8, prereq: ["w2"], practice: "editing",
     nExamples: 5, nExercises: 6,
     title: { zh: "修改与连贯", en: "Editing & Coherence" },
     summary: { zh: "自己当编辑:删冗余,补连接,统一时态与人称。", en: "Be your own editor: cut fluff, add links, unify tense and voice." },
@@ -484,7 +492,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "l2", code: "LS2", moduleId: "m6", difficulty: 2, hours: 9, prereq: ["l1"],
+    id: "l2", code: "LS2", moduleId: "m6", difficulty: 2, hours: 9, prereq: ["l1"], practice: "lectures",
     nExamples: 5, nExercises: 6,
     title: { zh: "讲座与演讲", en: "Lectures & Talks" },
     summary: { zh: "信号词、结构词、重读——听清「要点在哪」.", en: "Signposting and stress — hear where the point is." },
@@ -503,7 +511,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "l3", code: "LS3", moduleId: "m6", difficulty: 3, hours: 9, prereq: ["l1"],
+    id: "l3", code: "LS3", moduleId: "m6", difficulty: 3, hours: 9, prereq: ["l1"], practice: "accents",
     nExamples: 5, nExercises: 6,
     title: { zh: "口音与语流", en: "Accents & Fast Speech" },
     summary: { zh: "英音、美音、澳音——变体多,但规律仍可学。", en: "BrE, AmE, AusE — variants abound, patterns still learnable." },
@@ -522,7 +530,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "l4", code: "LS4", moduleId: "m6", difficulty: 3, hours: 8, prereq: ["l2"],
+    id: "l4", code: "LS4", moduleId: "m6", difficulty: 3, hours: 8, prereq: ["l2"], practice: "notetaking",
     nExamples: 5, nExercises: 6,
     title: { zh: "听记要点", en: "Note-taking While Listening" },
     summary: { zh: "缩写、符号、分层记录——听的同时留痕迹。", en: "Abbreviations, symbols, layers — leave a trail while you listen." },
@@ -562,7 +570,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "p2", code: "SP2", moduleId: "m7", difficulty: 2, hours: 8, prereq: ["p1"],
+    id: "p2", code: "SP2", moduleId: "m7", difficulty: 2, hours: 8, prereq: ["p1"], practice: "fluency",
     nExamples: 5, nExercises: 6,
     title: { zh: "流利度", en: "Fluency" },
     summary: { zh: "填充词、停顿、自我修正——流利不是完美。", en: "Fillers, pauses, self-repair — fluency isn't perfection." },
@@ -581,7 +589,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "p3", code: "SP3", moduleId: "m7", difficulty: 3, hours: 9, prereq: ["p2", "s2"],
+    id: "p3", code: "SP3", moduleId: "m7", difficulty: 3, hours: 9, prereq: ["p2", "s2"], practice: "debate",
     nExamples: 5, nExercises: 6,
     title: { zh: "讨论与辩论", en: "Discussion & Debate" },
     summary: { zh: "表达观点、同意反对、举例反驳——对话不是独白。", en: "Agree, disagree, support, rebut — conversation isn't a monologue." },
@@ -600,7 +608,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "p4", code: "SP4", moduleId: "m7", difficulty: 3, hours: 10, prereq: ["p2", "w1"],
+    id: "p4", code: "SP4", moduleId: "m7", difficulty: 3, hours: 10, prereq: ["p2", "w1"], practice: "presentation",
     nExamples: 5, nExercises: 6,
     title: { zh: "展示与汇报", en: "Presentations" },
     summary: { zh: "开场、主体、Q&A——把一页页要点说成故事。", en: "Opening, body, Q&A — turn bullet points into a story." },
@@ -621,7 +629,7 @@ const CHAPTERS = [
 
   /* ============ E8 Exam & Practical ============ */
   {
-    id: "x1", code: "XP1", moduleId: "m8", difficulty: 3, hours: 10, prereq: ["r2", "w2"],
+    id: "x1", code: "XP1", moduleId: "m8", difficulty: 3, hours: 10, prereq: ["r2", "w2"], practice: "ieltstoefl",
     nExamples: 5, nExercises: 6,
     title: { zh: "雅思与托福策略", en: "IELTS & TOEFL Strategies" },
     summary: { zh: "四科题型、评分逻辑、备考节奏——考试是项目,不是碰运气。", en: "Four skills, scoring logic, study rhythm — exams are projects, not luck." },
@@ -640,7 +648,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "x2", code: "XP2", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["p2", "w3"],
+    id: "x2", code: "XP2", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["p2", "w3"], practice: "interview",
     nExamples: 5, nExercises: 6,
     title: { zh: "面试英语", en: "Interview English" },
     summary: { zh: "自我介绍、STAR 答法、薪资与反问——职场第一印象。", en: "Intro, STAR answers, salary and questions — first impressions at work." },
@@ -659,7 +667,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "x3", code: "XP3", moduleId: "m8", difficulty: 2, hours: 7, prereq: ["w3"],
+    id: "x3", code: "XP3", moduleId: "m8", difficulty: 2, hours: 7, prereq: ["w3"], practice: "emailmsg",
     nExamples: 5, nExercises: 6,
     title: { zh: "邮件与消息", en: "Email & Messaging" },
     summary: { zh: "Subject line、礼貌程度、表情符号边界——频道不同,规矩不同。", en: "Subject lines, politeness, emoji boundaries — channel matters." },
@@ -678,7 +686,7 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "x4", code: "XP4", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["v4", "p3"],
+    id: "x4", code: "XP4", moduleId: "m8", difficulty: 3, hours: 8, prereq: ["v4", "p3"], practice: "pragmatics",
     nExamples: 5, nExercises: 6,
     title: { zh: "文化与语用", en: "Culture & Pragmatics" },
     summary: { zh: "礼貌、幽默、禁忌——说得对,还要说得体。", en: "Politeness, humor, taboos — correct isn't always appropriate." },
@@ -694,6 +702,122 @@ const CHAPTERS = [
       { zh: "幽默与讽刺风险", en: "Humor and irony risks" },
       { zh: "身体语言与副语言", en: "Body language and paralanguage" },
       { zh: "案例讨论", en: "Case discussions" },
+    ],
+  },
+  {
+    id: "x5", code: "XP5", moduleId: "m8", difficulty: 2, hours: 6, prereq: ["p2"], practice: "travel",
+    nExamples: 3, nExercises: 4,
+    title: { zh: "旅行英语", en: "Travel English" },
+    summary: { zh: "值机、入住、问路、打车——在路上把英语用起来。", en: "Airports, hotels, directions, taxis — English on the move." },
+    objectives: [
+      { zh: "在机场与酒店完成常见办理", en: "Handle airport and hotel check-in" },
+      { zh: "自然地问路与听懂指路", en: "Ask for and follow directions naturally" },
+      { zh: "用委婉句型提出请求(换房、加床等)", en: "Make polite requests (room change, extras)" },
+      { zh: "应对延误、丢失、退改等突发", en: "Cope with delays, lost items and changes" },
+    ],
+    outline: [
+      { zh: "机场值机与安检用语", en: "Airport check-in and security" },
+      { zh: "酒店入住与退房", en: "Hotel check-in and check-out" },
+      { zh: "问路与公共交通", en: "Directions and public transport" },
+      { zh: "打车与网约车", en: "Taxis and ride-hailing" },
+      { zh: "突发情况求助", en: "Asking for help when things go wrong" },
+    ],
+  },
+  {
+    id: "x6", code: "XP6", moduleId: "m8", difficulty: 1, hours: 5, prereq: ["p2"], practice: "dining",
+    nExamples: 3, nExercises: 4,
+    title: { zh: "点餐与用餐", en: "Dining & Ordering" },
+    summary: { zh: "点单、加料、买单、投诉——餐厅与咖啡店里的地道口语。", en: "Ordering, customizing, paying, complaints — natural café and restaurant English." },
+    objectives: [
+      { zh: "在餐厅与咖啡店自如点单", en: "Order confidently in restaurants and cafés" },
+      { zh: "说明忌口、加料与做法要求", en: "State allergies, add-ons and preferences" },
+      { zh: "区分堂食/外带与买单表达", en: "Distinguish for-here/to-go and paying" },
+      { zh: "礼貌处理上错菜或问题", en: "Politely handle mistakes with an order" },
+    ],
+    outline: [
+      { zh: "入座与看菜单", en: "Being seated and reading the menu" },
+      { zh: "点单常用句型", en: "Core ordering phrases" },
+      { zh: "忌口、加料与定制", en: "Allergies, add-ons and customizing" },
+      { zh: "堂食、外带与买单", en: "For here, to go, and the bill" },
+      { zh: "退换与礼貌投诉", en: "Sending back and polite complaints" },
+    ],
+  },
+
+  /* ============ E9 Kaoyan English ============ */
+  {
+    id: "k1", code: "KY1", moduleId: "m9", difficulty: 3, hours: 9, prereq: ["v2", "s1"], practice: "cloze",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "完形填空", en: "Cloze Test" },
+    summary: { zh: "20 空:靠上下文逻辑、搭配与连接词选词,而非孤立背单词。", en: "20 blanks: choose by context, collocation and connectors — not isolated vocab." },
+    objectives: [
+      { zh: "从上下文与逻辑关系推断答案", en: "Infer answers from context and logic" },
+      { zh: "掌握高频连接词与转折信号", en: "Master frequent connectors and signals" },
+      { zh: "利用固定搭配与词义辨析排除", en: "Eliminate via collocation and word sense" },
+      { zh: "控制完形做题时间(约 15 分钟)", en: "Time the cloze section (~15 min)" },
+    ],
+    outline: [
+      { zh: "完形题型与评分", en: "Cloze format and scoring" },
+      { zh: "首句定基调,通读全篇", en: "First sentence sets tone; read the whole" },
+      { zh: "逻辑关系:因果、转折、并列", en: "Logic: cause, contrast, addition" },
+      { zh: "近义词辨析与搭配", en: "Synonym discrimination and collocation" },
+      { zh: "真题实练与复盘", en: "Past-paper drills and review" },
+    ],
+  },
+  {
+    id: "k2", code: "KY2", moduleId: "m9", difficulty: 3, hours: 12, prereq: ["r2", "r3"], practice: "kyreading",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "阅读理解与新题型", en: "Reading & New Question Types" },
+    summary: { zh: "Part A 四选一 + Part B 七选五/排序/小标题,得阅读者得考研。", en: "Part A multiple choice + Part B (gapped text, ordering, headings) — reading wins the exam." },
+    objectives: [
+      { zh: "掌握主旨、细节、推断、态度、词义五类题", en: "Handle main idea, detail, inference, attitude, vocab" },
+      { zh: "定位关键句并排除干扰项", en: "Locate key sentences and rule out distractors" },
+      { zh: "攻克新题型:七选五与段落排序", en: "Crack gapped text and paragraph ordering" },
+      { zh: "分配阅读四篇的时间", en: "Budget time across four passages" },
+    ],
+    outline: [
+      { zh: "Part A 五大题型解法", en: "Five Part-A question types" },
+      { zh: "干扰项特征与排除", en: "Distractor patterns and elimination" },
+      { zh: "Part B 七选五(选句填空)", en: "Part B: gapped text" },
+      { zh: "Part B 排序与小标题", en: "Part B: ordering and headings" },
+      { zh: "真题精读与错题归因", en: "Close reading and error analysis" },
+    ],
+  },
+  {
+    id: "k3", code: "KY3", moduleId: "m9", difficulty: 3, hours: 9, prereq: ["s1", "s4"], practice: "translation",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "英译汉翻译", en: "English-Chinese Translation" },
+    summary: { zh: "长难句拆分、语序调整、词义引申——把英文准确译成通顺中文。", en: "Split long sentences, reorder, extend meaning — render English into fluent Chinese." },
+    objectives: [
+      { zh: "拆分长难句的主干与修饰", en: "Split main clause from modifiers" },
+      { zh: "处理定语从句与被动语态的译法", en: "Translate relative clauses and passives" },
+      { zh: "调整语序符合中文表达", en: "Reorder to fit Chinese usage" },
+      { zh: "按评分点逐句得分", en: "Score by translation points" },
+    ],
+    outline: [
+      { zh: "翻译题型与评分点", en: "Translation format and scoring points" },
+      { zh: "长难句结构分析", en: "Parsing complex sentences" },
+      { zh: "定语从句的前置与后置", en: "Relative clauses: pre- vs post-positioning" },
+      { zh: "被动、名词化与词义引申", en: "Passive, nominalization, meaning extension" },
+      { zh: "真题逐句精译", en: "Sentence-by-sentence practice" },
+    ],
+  },
+  {
+    id: "k4", code: "KY4", moduleId: "m9", difficulty: 3, hours: 10, prereq: ["w2", "w3"], practice: "kywriting",
+    nExamples: 5, nExercises: 6,
+    title: { zh: "小作文与大作文", en: "Writing: Letter & Essay" },
+    summary: { zh: "应用文(书信/通知)+ 图表/图画作文,套路清晰、语言得体。", en: "Practical writing (letters/notices) + chart/picture essay — clear templates, appropriate tone." },
+    objectives: [
+      { zh: "掌握常见应用文格式与套语", en: "Master formats and set phrases for letters" },
+      { zh: "描述图表/图画并展开论证", en: "Describe charts/pictures and argue" },
+      { zh: "积累可复用的高分句型", en: "Build reusable high-score sentence patterns" },
+      { zh: "在 40 分钟内完成两篇", en: "Finish both essays within 40 minutes" },
+    ],
+    outline: [
+      { zh: "小作文:书信、通知、备忘", en: "Short: letters, notices, memos" },
+      { zh: "大作文:图画/图表三段式", en: "Long: three-paragraph picture/chart essay" },
+      { zh: "开头、主体、结尾模板", en: "Intro, body, conclusion templates" },
+      { zh: "高级句型与连接手段", en: "Advanced patterns and cohesion" },
+      { zh: "真题范文与仿写", en: "Model essays and imitation" },
     ],
   },
 ];
