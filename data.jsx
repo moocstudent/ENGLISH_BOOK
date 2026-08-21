@@ -764,6 +764,25 @@ const CHAPTERS = [
     ],
   },
   {
+    id: "k5", code: "KY5", moduleId: "m9", difficulty: 3, hours: 3, prereq: ["k1"], practice: "clozeworkfree",
+    nExamples: 1, nExercises: 20,
+    title: { zh: "完形填空真题:无工作的未来", en: "Cloze in Practice: A Future Without Work" },
+    summary: { zh: "一篇考研风格完形真题精讲:20 空全文中英对照,逐空讲清「为什么选它、为什么排除其他」。", en: "A close walk-through of one Kaoyan-style cloze: full bilingual text with all 20 blanks, each explained — why the key, why not the rest." },
+    objectives: [
+      { zh: "在真实语篇中运用完形四步:通读→抓逻辑→看搭配→排干扰", en: "Apply the four-step cloze method in a real passage" },
+      { zh: "识别转折、举证、对比等连接信号(warning / Indeed / but…)", en: "Read connectors: contrast, evidence, comparison" },
+      { zh: "用固定搭配与语义辨析排除干扰项", en: "Eliminate distractors via collocation and word sense" },
+      { zh: "对照译文,梳理「无工作的未来」全文论证脉络", en: "Follow the whole argument through the parallel translation" },
+    ],
+    outline: [
+      { zh: "全文速览与主旨脉络", en: "Overview and line of argument" },
+      { zh: "全文中英对照(已填入答案)", en: "Full text with parallel translation (answers filled)" },
+      { zh: "20 空逐题解析:为什么选它", en: "All 20 blanks: why the key is right" },
+      { zh: "干扰项为什么错", en: "Why each distractor fails" },
+      { zh: "答案速览与自测", en: "Answer key and self-test" },
+    ],
+  },
+  {
     id: "k2", code: "KY2", moduleId: "m9", difficulty: 3, hours: 12, prereq: ["r2", "r3"], practice: "kyreading",
     nExamples: 5, nExercises: 6,
     title: { zh: "阅读理解与新题型", en: "Reading & New Question Types" },
