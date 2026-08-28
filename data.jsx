@@ -150,6 +150,14 @@ const MODULES = [
       en: "Six more playable audio clips — a hotel check-in, a doctor's visit, a weather forecast, a campus talk, returning an item and a local news bulletin. Listen, answer, then check the transcript.",
     },
   },
+  {
+    id: "m19", code: "E19", zh: "口语实训 · 跟读打分", en: "Speaking Lab (Speak & Score)", accent: "accent", level: 2,
+    tagline: { zh: "开口说,机器帮你打分。", en: "Speak up — the browser scores you." },
+    description: {
+      zh: "用麦克风练口语:六组常用句(自我介绍、寒暄、点餐购物、表达观点、打电话、面试)——先听示范,再开口说,浏览器实时识别并按匹配度打分,漏读的词会列出来。需 Chrome / Edge / Safari 与麦克风权限。",
+      en: "Practise speaking with your mic: six sets of useful lines (introductions, small talk, ordering, opinions, phone, interview). Listen to the model, then speak — the browser recognises your speech and scores the match, listing missed words. Needs Chrome/Edge/Safari + a microphone.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -200,6 +208,19 @@ const AU_OBJ = [
   { zh: "抓住数字、地点、选择、拼读等具体信息", en: "Catch numbers, places, choices and spellings" },
   { zh: "适应自然语速与连读、弱读", en: "Cope with natural pace, linking and weak forms" },
   { zh: "先听后答,再用原文自我核对", en: "Listen, answer, then self-check with the transcript" },
+];
+
+/* Shared metadata for the Speaking Lab chapters (E19) */
+const SP_OUTLINE = [
+  { zh: "跟读打分(交互)", en: "Speak & score (interactive)" },
+  { zh: "常用句型", en: "Key phrases" },
+  { zh: "练习建议", en: "How to practise" },
+];
+const SP_OBJ = [
+  { zh: "自如说出常用句,提升流利度", en: "Say useful lines fluently" },
+  { zh: "模仿示范的重音、连读与语调", en: "Copy the model's stress, linking and intonation" },
+  { zh: "用语音识别即时检查发音准确度", en: "Check your accuracy instantly with speech recognition" },
+  { zh: "在真实场景中开口而不怯场", en: "Speak up confidently in real situations" },
 ];
 
 const CHAPTERS = [
@@ -1195,6 +1216,32 @@ const CHAPTERS = [
     title: { zh: "本地新闻简报(独白)", en: "A Local News Bulletin (Monologue)" },
     summary: { zh: "听懂每条新闻的时间、地点、事件与安排。", en: "Catch the date, place, event and details of each news item." },
     objectives: AU_OBJ, outline: AU_OUTLINE },
+
+  /* ============ E19 Speaking Lab (speech recognition + TTS) ============ */
+  { id: "sk1", code: "SK1", moduleId: "m19", difficulty: 2, hours: 2, prereq: [], practice: "sk1", nExamples: 0, nExercises: 10,
+    title: { zh: "自我介绍", en: "Introducing Yourself" },
+    summary: { zh: "十句自我介绍常用语:听示范,开口说,浏览器打分。", en: "Ten introduction lines — listen, speak, get scored by the browser." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
+  { id: "sk2", code: "SK2", moduleId: "m19", difficulty: 2, hours: 2, prereq: [], practice: "sk2", nExamples: 0, nExercises: 10,
+    title: { zh: "日常寒暄与社交", en: "Small Talk & Socialising" },
+    summary: { zh: "问候、闲聊与礼貌结束对话的常用句。", en: "Greetings, light chat and politely ending a conversation." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
+  { id: "sk3", code: "SK3", moduleId: "m19", difficulty: 2, hours: 2, prereq: [], practice: "sk3", nExamples: 0, nExercises: 10,
+    title: { zh: "点餐 · 购物 · 服务", en: "Ordering, Shopping & Services" },
+    summary: { zh: "在咖啡馆、餐厅、商店里作为顾客要说的话。", en: "The customer's lines in cafés, restaurants and shops." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
+  { id: "sk4", code: "SK4", moduleId: "m19", difficulty: 2, hours: 2, prereq: [], practice: "sk4", nExamples: 0, nExercises: 10,
+    title: { zh: "表达观点 · 同意与反对", en: "Opinions, Agreeing & Disagreeing" },
+    summary: { zh: "礼貌地表达看法、同意、部分同意与反对。", en: "State a view, agree, partly agree and disagree politely." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
+  { id: "sk5", code: "SK5", moduleId: "m19", difficulty: 2, hours: 2, prereq: [], practice: "sk5", nExamples: 0, nExercises: 10,
+    title: { zh: "打电话与安排", en: "On the Phone & Making Plans" },
+    summary: { zh: "接打电话、留言、约时间与确认安排。", en: "Make and take calls, leave messages, fix times and confirm plans." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
+  { id: "sk6", code: "SK6", moduleId: "m19", difficulty: 3, hours: 2, prereq: [], practice: "sk6", nExamples: 0, nExercises: 10,
+    title: { zh: "面试常用回答", en: "Interview Answers" },
+    summary: { zh: "面试中自信、地道的常用回答句。", en: "Confident, natural lines to use in a job interview." },
+    objectives: SP_OBJ, outline: SP_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);

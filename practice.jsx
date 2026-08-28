@@ -1546,6 +1546,104 @@ function ListeningPlayer({ data }) {
   );
 }
 
+/* ---- Speaking coach (browser speech recognition + TTS) ---- */
+function normWords(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9\s']/g, " ").split(/\s+/).filter(Boolean); }
+function scoreSpeech(target, said) {
+  const t = normWords(target), h = normWords(said);
+  const m = t.length, n = h.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let a = 1; a <= m; a++) for (let b = 1; b <= n; b++) dp[a][b] = t[a - 1] === h[b - 1] ? dp[a - 1][b - 1] + 1 : Math.max(dp[a - 1][b], dp[a][b - 1]);
+  const matched = new Array(m).fill(false);
+  let a = m, b = n;
+  while (a > 0 && b > 0) { if (t[a - 1] === h[b - 1]) { matched[a - 1] = true; a--; b--; } else if (dp[a - 1][b] >= dp[a][b - 1]) a--; else b--; }
+  const mc = matched.filter(Boolean).length;
+  const missed = t.filter((w, idx) => !matched[idx]);
+  return { said, score: m ? Math.round((mc / m) * 100) : 0, missed };
+}
+
+function SpeakingCoach({ data }) {
+  const lang = useLang();
+  const L = (o) => (o ? (lang === "zh" ? (o.zh || o.en) : (o.en || o.zh)) : "");
+  const items = (data && data.items) || [];
+  const [i, setI] = React.useState(0);
+  const [recording, setRecording] = React.useState(false);
+  const [result, setResult] = React.useState(null);
+  const recRef = React.useRef(null);
+  const cur = items[i] || items[0] || { en: "", zh: "" };
+  const hasTTS = typeof window !== "undefined" && !!window.speechSynthesis;
+  const SR = typeof window !== "undefined" ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
+
+  React.useEffect(() => { setResult(null); if (recRef.current) { try { recRef.current.abort(); } catch (e) {} } setRecording(false); }, [i]);
+  React.useEffect(() => () => { if (recRef.current) { try { recRef.current.abort(); } catch (e) {} } }, []);
+
+  const listen = () => { if (hasTTS) speakEn(cur.en, lang); };
+  const record = () => {
+    if (!SR) return;
+    try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
+    const rec = new SR(); recRef.current = rec;
+    rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 1;
+    setResult(null); setRecording(true);
+    rec.onresult = (e) => { setResult(scoreSpeech(cur.en, e.results[0][0].transcript)); };
+    rec.onerror = (e) => { setRecording(false); setResult({ error: e.error || "error" }); };
+    rec.onend = () => setRecording(false);
+    try { rec.start(); } catch (e) { setRecording(false); }
+  };
+  const stopRec = () => { if (recRef.current) { try { recRef.current.stop(); } catch (e) {} } setRecording(false); };
+
+  const go = (d) => setI((x) => Math.min(items.length - 1, Math.max(0, x + d)));
+  const scoreColor = (s) => (s >= 80 ? "var(--accent)" : s >= 50 ? "#b8860b" : "var(--muted)");
+  const scoreMsg = (s) => (lang === "zh"
+    ? (s >= 80 ? "很棒!发音清晰。" : s >= 50 ? "不错,再试一次会更好。" : "继续练习,放慢一点。")
+    : (s >= 80 ? "Great — clear and accurate!" : s >= 50 ? "Good — try once more." : "Keep practising, a little slower."));
+
+  return (
+    <div className="speaking-coach" style={{ border: "1px solid var(--hairline-strong)", padding: 16, margin: "4px 0 14px", background: "var(--surface)" }}>
+      {data.intro ? <div style={{ fontSize: 14, color: "var(--ink-soft)", marginBottom: 10 }}>🎙️ {L(data.intro)}</div> : null}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+        <span className="mono tiny" style={{ color: "var(--muted)" }}>{i + 1} / {items.length}</span>
+        <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
+          <button type="button" className="btn" disabled={i <= 0} onClick={() => go(-1)}>←</button>
+          <button type="button" className="btn" disabled={i >= items.length - 1} onClick={() => go(1)}>→</button>
+        </div>
+      </div>
+      <div style={{ fontSize: 20, lineHeight: 1.5, margin: "6px 0" }}><span className="en-text">{cur.en}</span></div>
+      {lang === "zh" && cur.zh ? <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 6 }}>{cur.zh}</div> : null}
+      {cur.tip ? <div style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 8 }}>💡 {L(cur.tip)}</div> : null}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 6 }}>
+        <button type="button" className="btn" onClick={listen}>🔊 {lang === "zh" ? "听示范" : "Listen"}</button>
+        {SR
+          ? (!recording
+            ? <button type="button" className="btn btn-accent" onClick={record}>🎤 {lang === "zh" ? "开口说" : "Speak"}</button>
+            : <button type="button" className="btn" onClick={stopRec}>⏹ {lang === "zh" ? "停止" : "Stop"}</button>)
+          : <span className="tiny" style={{ color: "var(--muted)" }}>{lang === "zh" ? "此浏览器不支持语音识别(可用 Chrome/Edge/Safari);仍可听示范跟读。" : "No speech recognition here (use Chrome/Edge/Safari); you can still Listen and repeat."}</span>}
+        {recording ? <span className="tiny" style={{ color: "var(--accent)" }}>● {lang === "zh" ? "录音中…请朗读上面的句子" : "listening… read the sentence aloud"}</span> : null}
+      </div>
+      {result ? (
+        <div style={{ marginTop: 12, borderTop: "1px solid var(--hairline)", paddingTop: 10 }}>
+          {result.error ? (
+            <div className="tiny" style={{ color: "var(--muted)" }}>
+              {result.error === "not-allowed"
+                ? (lang === "zh" ? "麦克风权限被拒绝。请在浏览器允许麦克风后重试。" : "Microphone blocked — allow mic access and try again.")
+                : result.error === "no-speech"
+                  ? (lang === "zh" ? "没听清,请再说一次。" : "Didn't catch that — try again.")
+                  : (lang === "zh" ? "识别出错,请重试。" : "Recognition error — try again.")}
+            </div>
+          ) : (
+            <>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                <span style={{ fontSize: 22, fontWeight: 700, color: scoreColor(result.score) }}>{result.score}%</span>
+                <span className="tiny" style={{ color: "var(--ink-soft)" }}>{scoreMsg(result.score)}</span>
+              </div>
+              <div style={{ fontSize: 13, marginTop: 6 }}><span style={{ color: "var(--muted)" }}>{lang === "zh" ? "识别到:" : "You said:"} </span>"{result.said}"</div>
+              {result.missed && result.missed.length ? <div className="tiny" style={{ color: "#b8860b", marginTop: 4 }}>{lang === "zh" ? "漏读/不清:" : "Try to include:"} {result.missed.join(", ")}</div> : null}
+            </>
+          )}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function PracticePanel({ config }) {
   const lang = useLang();
   const t = useT();
@@ -1553,6 +1651,7 @@ function PracticePanel({ config }) {
   return (
     <div className="practice" onClick={(e) => e.stopPropagation()}>
       {config.listening ? <ListeningPlayer data={config.listening} /> : null}
+      {config.speaking ? <SpeakingCoach data={config.speaking} /> : null}
       {config.speak ? <SpeakRow items={config.speak} /> : null}
       {config.scenes ? (
         <>
