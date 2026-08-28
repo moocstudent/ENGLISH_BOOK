@@ -1644,6 +1644,111 @@ function SpeakingCoach({ data }) {
   );
 }
 
+/* ---- Writing coach (rule-based instant feedback) ---- */
+function analyzeWriting(text, cfg) {
+  const words = text.trim().match(/\S+/g) || [];
+  const wc = words.length;
+  const minW = cfg.minWords || 30, maxW = cfg.maxWords || 200;
+  const wcState = wc === 0 ? "empty" : wc < minW ? "short" : wc > maxW ? "long" : "ok";
+  const t = text.toLowerCase();
+  const elements = (cfg.mustInclude || []).map((el) => ({ label: el.label, ok: (el.keywords || []).some((k) => t.indexOf(String(k).toLowerCase()) >= 0) }));
+  const issues = [];
+  const sentences = text.split(/[.!?]+/).map((s) => s.trim()).filter(Boolean);
+  if (/ {2,}/.test(text)) issues.push({ zh: "有多余的连续空格。", en: "There are double spaces." });
+  if (/(^|[^A-Za-z])i([^A-Za-z]|$)/.test(text) && / i /.test(" " + text + " ")) issues.push({ zh: "代词 “I” 必须大写。", en: "The pronoun “I” must be capitalized." });
+  const lowerStart = sentences.filter((s) => /^[a-z]/.test(s)).length;
+  if (lowerStart > 0) issues.push({ zh: lowerStart + " 处句子没有以大写字母开头。", en: lowerStart + " sentence(s) don't start with a capital letter." });
+  if (text.trim() && !/[.!?]["')”]?$/.test(text.trim())) issues.push({ zh: "结尾缺少标点(. ! ?)。", en: "Add end punctuation (. ! ?)." });
+  if (sentences.some((s) => (s.match(/\S+/g) || []).length > 40)) issues.push({ zh: "有很长的句子,考虑拆成两句。", en: "A very long sentence — consider splitting it." });
+  if (/\b(\w+)\s+\1\b/i.test(text)) issues.push({ zh: "有相邻重复的词(如 “the the”)。", en: "A word is repeated next to itself (e.g. “the the”)." });
+  const commons = [
+    [/\bvery (much )?(like|want|enjoy|hate)\b/i, { zh: "“very like” 不地道:用 “really like” 或 “like … very much”。", en: "“very like” is unnatural — use “really like” or “like … very much”." }],
+    [/\b(informations|advices|equipments|furnitures|knowledges)\b/i, { zh: "这些是不可数名词,不加 -s。", en: "These nouns are uncountable — no plural -s." }],
+    [/\bpeoples\b/i, { zh: "“people” 已经是复数。", en: "“people” is already plural." }],
+    [/\bmore (better|easier|faster|bigger)\b/i, { zh: "双重比较级:去掉 “more”。", en: "Double comparative — drop “more”." }],
+    [/\bthere is \w+s\b/i, { zh: "“there is + 复数” 应为 “there are”。", en: "“there is” + a plural should be “there are”." }],
+  ];
+  commons.forEach((c) => { if (c[0].test(text)) issues.push(c[1]); });
+  return { wc, minW, maxW, wcState, elements, coveredN: elements.filter((e) => e.ok).length, issues };
+}
+
+function WritingCoach({ data }) {
+  const lang = useLang();
+  const L = (o) => (o ? (lang === "zh" ? (o.zh || o.en) : (o.en || o.zh)) : "");
+  const storeKey = "ebk_write_" + (data.storeKey || "x");
+  const [text, setText] = React.useState("");
+  const [fb, setFb] = React.useState(null);
+  const [showModel, setShowModel] = React.useState(false);
+  const [showFrames, setShowFrames] = React.useState(false);
+  React.useEffect(() => { try { const s = window.localStorage.getItem(storeKey); if (s) setText(s); } catch (e) {} }, [storeKey]);
+  const onChange = (e) => { const v = e.target.value; setText(v); setFb(null); try { window.localStorage.setItem(storeKey, v); } catch (e2) {} };
+  const wc = (text.trim().match(/\S+/g) || []).length;
+  const minW = data.minWords || 30, maxW = data.maxWords || 200;
+  const wcColor = wc === 0 ? "var(--muted)" : (wc < minW || wc > maxW) ? "#b8860b" : "var(--accent)";
+  const clear = () => { setText(""); setFb(null); try { window.localStorage.removeItem(storeKey); } catch (e) {} };
+
+  return (
+    <div className="writing-coach" style={{ border: "1px solid var(--hairline-strong)", padding: 16, margin: "4px 0 14px", background: "var(--surface)" }}>
+      <div style={{ fontSize: 14, color: "var(--ink)", marginBottom: 8 }}>✍️ <strong>{lang === "zh" ? "写作任务" : "Task"}:</strong> {L(data.prompt)}</div>
+      <div className="tiny" style={{ color: "var(--muted)", marginBottom: 8 }}>{lang === "zh" ? "建议字数" : "Target"}: {minW}–{maxW} {lang === "zh" ? "词" : "words"} · <span style={{ color: wcColor, fontWeight: 600 }}>{wc} {lang === "zh" ? "词" : "words"}</span></div>
+      {data.frames && data.frames.length ? (
+        <div style={{ marginBottom: 8 }}>
+          <button type="button" className="btn" style={{ padding: "2px 10px" }} onClick={() => setShowFrames((s) => !s)}>{showFrames ? (lang === "zh" ? "收起句型" : "Hide phrases") : (lang === "zh" ? "💡 有用句型" : "💡 Useful phrases")}</button>
+          {showFrames ? <ul style={{ margin: "8px 0 0", paddingLeft: 20, fontSize: 13, color: "var(--ink-soft)" }}>{data.frames.map((f, i) => <li key={i} style={{ marginBottom: 3 }}>{L(f)}</li>)}</ul> : null}
+        </div>
+      ) : null}
+      <textarea value={text} onChange={onChange} rows={7} spellCheck={true}
+        placeholder={lang === "zh" ? "在这里用英文写作…(自动保存到本地)" : "Write your answer in English here… (auto-saved on this device)"}
+        style={{ width: "100%", boxSizing: "border-box", padding: 10, fontSize: 15, fontFamily: "var(--f-body)", border: "1px solid var(--hairline-strong)", background: "var(--bg)", color: "var(--ink)", lineHeight: 1.5, resize: "vertical" }} />
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+        <button type="button" className="btn btn-accent" onClick={() => setFb(analyzeWriting(text, data))}>{lang === "zh" ? "检查反馈" : "Get feedback"}</button>
+        <button type="button" className="btn" onClick={() => setShowModel((s) => !s)}>{showModel ? (lang === "zh" ? "隐藏范文" : "Hide model") : (lang === "zh" ? "看范文" : "Model answer")}</button>
+        <button type="button" className="btn" style={{ marginLeft: "auto" }} onClick={clear}>{lang === "zh" ? "清空" : "Clear"}</button>
+      </div>
+      {fb ? (
+        <div style={{ marginTop: 12, borderTop: "1px solid var(--hairline)", paddingTop: 10, fontSize: 14 }}>
+          <div style={{ marginBottom: 6 }}>
+            <strong>{lang === "zh" ? "字数" : "Length"}:</strong>{" "}
+            <span style={{ color: fb.wcState === "ok" ? "var(--accent)" : "#b8860b" }}>
+              {fb.wcState === "empty" ? (lang === "zh" ? "还没有内容。" : "Nothing written yet.")
+                : fb.wcState === "short" ? (lang === "zh" ? `偏短(${fb.wc} 词,建议 ≥ ${fb.minW})。` : `A bit short (${fb.wc} words; aim for ≥ ${fb.minW}).`)
+                  : fb.wcState === "long" ? (lang === "zh" ? `偏长(${fb.wc} 词,建议 ≤ ${fb.maxW})。` : `A bit long (${fb.wc} words; aim for ≤ ${fb.maxW}).`)
+                    : (lang === "zh" ? `${fb.wc} 词,长度合适 ✓` : `${fb.wc} words — good length ✓`)}
+            </span>
+          </div>
+          {fb.elements.length ? (
+            <div style={{ marginBottom: 6 }}>
+              <strong>{lang === "zh" ? "任务要点" : "Task points"} ({fb.coveredN}/{fb.elements.length}):</strong>
+              <ul style={{ margin: "4px 0 0", paddingLeft: 20 }}>
+                {fb.elements.map((el, i) => <li key={i} style={{ color: el.ok ? "var(--accent)" : "#b8860b" }}>{el.ok ? "✓ " : "✗ "}{L(el.label)}{el.ok ? "" : (lang === "zh" ? "(似乎缺少)" : " (seems missing)")}</li>)}
+              </ul>
+            </div>
+          ) : null}
+          <div>
+            <strong>{lang === "zh" ? "语言建议" : "Suggestions"}:</strong>
+            {fb.issues.length ? <ul style={{ margin: "4px 0 0", paddingLeft: 20 }}>{fb.issues.map((s, i) => <li key={i} style={{ color: "var(--ink-soft)" }}>{L(s)}</li>)}</ul>
+              : <span style={{ color: "var(--accent)" }}> {lang === "zh" ? " 没有发现明显的机械错误,很好!再对照范文优化内容。" : " No obvious mechanical errors — nice! Now compare with the model to improve content."}</span>}
+          </div>
+          <div className="tiny" style={{ color: "var(--muted)", marginTop: 8 }}>{lang === "zh" ? "注:这是基于规则的即时反馈,用于自查;更细的内容评价请对照范文与要点清单。" : "Note: this is rule-based instant feedback for self-checking; compare with the model and checklist for deeper content feedback."}</div>
+        </div>
+      ) : null}
+      {showModel ? (
+        <div style={{ marginTop: 12, borderTop: "1px solid var(--hairline)", paddingTop: 10 }}>
+          {data.checklist && data.checklist.length ? (
+            <div style={{ marginBottom: 8 }}>
+              <strong style={{ fontSize: 14 }}>{lang === "zh" ? "评分要点清单" : "Success criteria"}</strong>
+              <ul style={{ margin: "4px 0 0", paddingLeft: 20, fontSize: 13 }}>{data.checklist.map((c, i) => <li key={i}>{L(c)}</li>)}</ul>
+            </div>
+          ) : null}
+          {data.model ? (<><strong style={{ fontSize: 14 }}>{lang === "zh" ? "参考范文" : "Model answer"}</strong>
+            <div style={{ marginTop: 4, padding: 10, background: "var(--bg)", border: "1px solid var(--hairline)", fontSize: 14, lineHeight: 1.6, whiteSpace: "pre-wrap" }} className="en-text">{data.model.en}</div>
+            {lang === "zh" && data.model.zh ? <div className="tiny" style={{ color: "var(--muted)", marginTop: 4 }}>{data.model.zh}</div> : null}</>) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function PracticePanel({ config }) {
   const lang = useLang();
   const t = useT();
@@ -1652,6 +1757,7 @@ function PracticePanel({ config }) {
     <div className="practice" onClick={(e) => e.stopPropagation()}>
       {config.listening ? <ListeningPlayer data={config.listening} /> : null}
       {config.speaking ? <SpeakingCoach data={config.speaking} /> : null}
+      {config.writing ? <WritingCoach data={config.writing} /> : null}
       {config.speak ? <SpeakRow items={config.speak} /> : null}
       {config.scenes ? (
         <>

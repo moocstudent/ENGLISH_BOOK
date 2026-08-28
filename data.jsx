@@ -158,6 +158,14 @@ const MODULES = [
       en: "Practise speaking with your mic: six sets of useful lines (introductions, small talk, ordering, opinions, phone, interview). Listen to the model, then speak — the browser recognises your speech and scores the match, listing missed words. Needs Chrome/Edge/Safari + a microphone.",
     },
   },
+  {
+    id: "m20", code: "E20", zh: "写作实训 · 即时反馈", en: "Writing Lab (Instant Feedback)", accent: "primary", level: 3,
+    tagline: { zh: "动笔写,马上得到反馈。", en: "Write, and get feedback right away." },
+    description: {
+      zh: "六个真实写作任务(道歉邮件、请求邮件、观点段落、投诉信、图表描述、利弊短文):在框里写英文,点「检查反馈」即时得到字数、任务要点覆盖与常见语言问题的反馈,再对照评分要点与范文。草稿自动保存在本机。",
+      en: "Six real writing tasks (apology email, request email, opinion paragraph, complaint letter, chart description, for-and-against). Write in the box, press Get feedback for instant word-count, task-point and common-mistake feedback, then compare with the criteria and a model. Drafts auto-save on your device.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -221,6 +229,20 @@ const SP_OBJ = [
   { zh: "模仿示范的重音、连读与语调", en: "Copy the model's stress, linking and intonation" },
   { zh: "用语音识别即时检查发音准确度", en: "Check your accuracy instantly with speech recognition" },
   { zh: "在真实场景中开口而不怯场", en: "Speak up confidently in real situations" },
+];
+
+/* Shared metadata for the Writing Lab chapters (E20) */
+const WR_OUTLINE = [
+  { zh: "写作任务与即时反馈(交互)", en: "Task + instant feedback (interactive)" },
+  { zh: "评分要点", en: "Success criteria" },
+  { zh: "有用句型", en: "Useful phrases" },
+  { zh: "参考范文", en: "Model answer" },
+];
+const WR_OBJ = [
+  { zh: "按任务要求写出结构清晰的短文或邮件", en: "Write a clear, well-structured email or paragraph" },
+  { zh: "覆盖任务要点(称呼、原因、请求、结尾等)", en: "Cover the task's required points" },
+  { zh: "用连接词与常用句型让表达连贯", en: "Use linkers and set phrases for coherence" },
+  { zh: "用即时反馈自查字数、要点与常见错误", en: "Self-check length, points and common errors with instant feedback" },
 ];
 
 const CHAPTERS = [
@@ -1242,6 +1264,32 @@ const CHAPTERS = [
     title: { zh: "面试常用回答", en: "Interview Answers" },
     summary: { zh: "面试中自信、地道的常用回答句。", en: "Confident, natural lines to use in a job interview." },
     objectives: SP_OBJ, outline: SP_OUTLINE },
+
+  /* ============ E20 Writing Lab (rule-based instant feedback) ============ */
+  { id: "wr1", code: "WL1", moduleId: "m20", difficulty: 2, hours: 2, prereq: [], practice: "wr1", nExamples: 0, nExercises: 1,
+    title: { zh: "道歉与改期邮件", en: "An Apology & Reschedule Email" },
+    summary: { zh: "为错过会议道歉,说明原因并提议新时间。", en: "Apologise for missing a meeting, give a reason and propose a new time." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
+  { id: "wr2", code: "WL2", moduleId: "m20", difficulty: 2, hours: 2, prereq: [], practice: "wr2", nExamples: 0, nExercises: 1,
+    title: { zh: "请求与询问邮件", en: "A Request / Enquiry Email" },
+    summary: { zh: "写邮件询问信息:说明来意、提出问题、请求回复。", en: "Email to ask for information — say why, ask questions, request a reply." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
+  { id: "wr3", code: "WL3", moduleId: "m20", difficulty: 3, hours: 2, prereq: [], practice: "wr3", nExamples: 0, nExercises: 1,
+    title: { zh: "观点段落", en: "An Opinion Paragraph" },
+    summary: { zh: "就一个话题表明立场:主题句、理由、例子、结论。", en: "Take a position: topic sentence, reasons, example, conclusion." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
+  { id: "wr4", code: "WL4", moduleId: "m20", difficulty: 3, hours: 2, prereq: [], practice: "wr4", nExamples: 0, nExercises: 1,
+    title: { zh: "投诉信/邮件", en: "A Complaint Email" },
+    summary: { zh: "就产品或服务问题投诉,礼貌而坚定地提出诉求。", en: "Complain about a product or service — polite but firm, with a clear request." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
+  { id: "wr5", code: "WL5", moduleId: "m20", difficulty: 3, hours: 2, prereq: [], practice: "wr5", nExamples: 0, nExercises: 1,
+    title: { zh: "描述图表趋势", en: "Describing a Chart / Trend" },
+    summary: { zh: "描述图表:概述、关键数据、趋势词与对比。", en: "Describe a chart — overview, key figures, trend verbs and a comparison." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
+  { id: "wr6", code: "WL6", moduleId: "m20", difficulty: 3, hours: 2, prereq: [], practice: "wr6", nExamples: 0, nExercises: 1,
+    title: { zh: "利弊短文", en: "A For-and-Against Paragraph" },
+    summary: { zh: "写一段利弊分析:优点、缺点、连接词与自己的看法。", en: "Weigh pros and cons: an advantage, a disadvantage, linkers and your view." },
+    objectives: WR_OBJ, outline: WR_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
