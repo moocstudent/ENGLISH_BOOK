@@ -142,6 +142,14 @@ const MODULES = [
       en: "Six playable audio clips (read aloud by the browser's speech synthesis) — everyday dialogues, a voicemail, an announcement, an interview and a short talk. Listen, answer, then check the transcript. Adjustable speed, line-by-line replay.",
     },
   },
+  {
+    id: "m18", code: "E18", zh: "听力实训 II · 音频", en: "Listening Lab II (Audio)", accent: "primary", level: 2,
+    tagline: { zh: "更多真实场景,继续磨耳朵。", en: "More real scenes — keep training your ear." },
+    description: {
+      zh: "第二组六段可播放音频:酒店入住、看医生、天气预报、校园短讲、退换商品与本地新闻简报——同样先听后答,再对照原文、生词与解析。",
+      en: "Six more playable audio clips — a hotel check-in, a doctor's visit, a weather forecast, a campus talk, returning an item and a local news bulletin. Listen, answer, then check the transcript.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -1160,6 +1168,32 @@ const CHAPTERS = [
   { id: "au6", code: "LA6", moduleId: "m17", difficulty: 3, hours: 2, prereq: [], practice: "au6", nExamples: 0, nExercises: 5,
     title: { zh: "短讲:一个有趣的话题(独白)", en: "A Short Talk (Monologue)" },
     summary: { zh: "听懂短讲的主旨、要点与举例,练听讲笔记。", en: "Catch the main idea, key points and examples of a short talk." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+
+  /* ============ E18 Listening Lab II ============ */
+  { id: "au7", code: "LA7", moduleId: "m18", difficulty: 2, hours: 2, prereq: [], practice: "au7", nExamples: 0, nExercises: 5,
+    title: { zh: "酒店入住(对话)", en: "Hotel Check-in (Dialogue)" },
+    summary: { zh: "听懂预订名、房型、住几晚、早餐与退房时间。", en: "Catch the booking name, room type, nights, breakfast and checkout." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au8", code: "LA8", moduleId: "m18", difficulty: 2, hours: 2, prereq: [], practice: "au8", nExamples: 0, nExercises: 5,
+    title: { zh: "看医生 · 描述症状(对话)", en: "At the Doctor's (Dialogue)" },
+    summary: { zh: "听懂症状、持续天数、体温与医生的建议。", en: "Catch the symptoms, how long, temperature and the doctor's advice." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au9", code: "LA9", moduleId: "m18", difficulty: 2, hours: 2, prereq: [], practice: "au9", nExamples: 0, nExercises: 5,
+    title: { zh: "天气预报(独白)", en: "A Weather Forecast (Monologue)" },
+    summary: { zh: "听懂各地气温、降雨/大风与出行建议。", en: "Catch temperatures, rain/wind and the advice." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au10", code: "LA10", moduleId: "m18", difficulty: 3, hours: 2, prereq: [], practice: "au10", nExamples: 0, nExercises: 5,
+    title: { zh: "校园短讲(独白)", en: "A Short Campus Talk (Monologue)" },
+    summary: { zh: "听懂讲座的主旨、论据与举例(学习方法/科普)。", en: "Catch the main point, support and example of a short talk." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au11", code: "LA11", moduleId: "m18", difficulty: 2, hours: 2, prereq: [], practice: "au11", nExamples: 0, nExercises: 5,
+    title: { zh: "退换商品(对话)", en: "Returning an Item (Dialogue)" },
+    summary: { zh: "听懂退货原因、票据、退换政策、期限与退款方式。", en: "Catch the reason, receipt, policy, time limit and how the refund is given." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au12", code: "LA12", moduleId: "m18", difficulty: 3, hours: 2, prereq: [], practice: "au12", nExamples: 0, nExercises: 5,
+    title: { zh: "本地新闻简报(独白)", en: "A Local News Bulletin (Monologue)" },
+    summary: { zh: "听懂每条新闻的时间、地点、事件与安排。", en: "Catch the date, place, event and details of each news item." },
     objectives: AU_OBJ, outline: AU_OUTLINE },
 ];
 
