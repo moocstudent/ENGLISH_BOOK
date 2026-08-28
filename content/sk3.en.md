@@ -19,7 +19,7 @@
 - **Sorry, where can I find the milk?**
   *💡 'can I' reduces to /kənaɪ/.*
 - **Could I get this to go, please?**
-  *💡 'to go' = takeaway (the UK term).*
+  *💡 'to go' is US English; the UK usually says 'takeaway'.*
 - **I'd like to return this. Do I need the receipt?**
   *💡 The 'p' in 'receipt' is silent: /rɪˈsiːt/.*
 - **Is this on sale, or is it full price?**
