@@ -78,7 +78,58 @@ const MODULES = [
       en: "For China's postgraduate entrance exam (English I / II): cloze, reading, new question types, translation and essays — broken down by task with exam-style tactics and drills.",
     },
   },
+  {
+    id: "m10", code: "E10", zh: "寓言与短篇小说", en: "Fables & Short Stories", accent: "accent", level: 2,
+    tagline: { zh: "从最短的故事开始,读懂弦外之音。", en: "Start small — short stories, big meaning." },
+    description: {
+      zh: "精读六篇公版短篇——伊索寓言、欧·亨利、王尔德、凯特·肖邦、莫泊桑与爱伦·坡:篇幅短、情节全,最适合练主旨、推断与反讽。",
+      en: "Six public-domain short pieces — Aesop, O. Henry, Wilde, Chopin, Maupassant and Poe — short but complete, ideal for main idea, inference and irony.",
+    },
+  },
+  {
+    id: "m11", code: "E11", zh: "经典小说选段", en: "Classic Novels", accent: "primary", level: 2,
+    tagline: { zh: "读名著的第一页,就上瘾。", en: "One famous first page, and you're hooked." },
+    description: {
+      zh: "六部经典小说的开篇或名场面——《傲慢与偏见》《圣诞颂歌》《汤姆·索亚历险记》《爱丽丝漫游奇境》《小妇人》《金银岛》:在真实文学语境里练阅读。",
+      en: "Openings and set pieces from six classic novels — Pride and Prejudice, A Christmas Carol, Tom Sawyer, Alice, Little Women and Treasure Island.",
+    },
+  },
+  {
+    id: "m12", code: "E12", zh: "悬疑 · 科幻 · 哥特", en: "Mystery, Sci-Fi & Gothic", accent: "accent", level: 3,
+    tagline: { zh: "跟着线索、怪物与机器读下去。", en: "Follow the clue, the monster, the machine." },
+    description: {
+      zh: "六篇张力十足的名作——福尔摩斯、《弗兰肯斯坦》《时间机器》《德拉库拉》《沉睡谷传奇》《黄色墙纸》:情节抓人,最练推断与氛围理解。",
+      en: "Six gripping classics — Sherlock Holmes, Frankenstein, The Time Machine, Dracula, Sleepy Hollow and The Yellow Wallpaper — great for inference and atmosphere.",
+    },
+  },
+  {
+    id: "m13", code: "E13", zh: "演讲 · 散文 · 游记 · 科普", en: "Speeches, Essays & Nonfiction", accent: "primary", level: 3,
+    tagline: { zh: "真实世界的声音,最见思想。", en: "Real-world voices, real ideas." },
+    description: {
+      zh: "六篇公版非虚构——林肯《葛底斯堡演说》、梭罗《瓦尔登湖》、爱默生《论自我》、道格拉斯自述、内莉·布莱环球报道与达尔文《贝格尔号航海记》:论说、演讲与新闻的读法。",
+      en: "Six public-domain nonfiction texts — Lincoln's Gettysburg Address, Thoreau's Walden, Emerson's Self-Reliance, Douglass's Narrative, Nellie Bly's reporting and Darwin's Voyage of the Beagle.",
+    },
+  },
 ];
+
+/* Shared metadata for the Reading Anthology chapters (E10–E13) */
+const RC_OUTLINE = [
+  { zh: "原文选读", en: "The passage" },
+  { zh: "生词与短语", en: "Vocabulary" },
+  { zh: "参考译文", en: "Reference translation" },
+  { zh: "背景与理解", en: "Background & reading notes" },
+  { zh: "阅读理解自测(5 题)", en: "Comprehension self-check (5 Qs)" },
+];
+const RC_OBJ = (first) => [
+  first,
+  { zh: "结合上下文猜测生词词义", en: "Guess word meaning from context" },
+  { zh: "抓主旨、辨细节、做合理推断", en: "Find the main idea, details and inferences" },
+  { zh: "体会语气、反讽与写作手法", en: "Feel the tone, irony and craft" },
+];
+const RC_OBJ_FABLE = { zh: "读懂寓言与短篇的寓意与转折", en: "Grasp the moral and twist of a short tale" };
+const RC_OBJ_NOVEL = { zh: "读懂小说开篇的人物、场景与基调", en: "Read a novel's opening — character, scene and mood" };
+const RC_OBJ_MYST = { zh: "跟随情节线索,读懂悬念与氛围", en: "Follow the plot; read suspense and atmosphere" };
+const RC_OBJ_NONFIC = { zh: "读懂论点、论据与作者立场", en: "Grasp the claim, evidence and the author's stance" };
 
 const CHAPTERS = [
   /* ============ E1 Tenses & Verbs ============ */
@@ -839,6 +890,110 @@ const CHAPTERS = [
       { zh: "真题范文与仿写", en: "Model essays and imitation" },
     ],
   },
+
+  /* ============ E10 Fables & Short Stories ============ */
+  { id: "a1", code: "FB1", moduleId: "m10", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "《伊索寓言》选读", en: "Aesop's Fables" },
+    summary: { zh: "《龟兔赛跑》与《狼来了》:短小寓言,寓意深长——练概括与推断。", en: "The Tortoise and the Hare and The Boy Who Cried Wolf — tiny tales, big morals." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+  { id: "a2", code: "FB2", moduleId: "m10", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "麦琪的礼物", en: "The Gift of the Magi" },
+    summary: { zh: "欧·亨利式反转:一对穷夫妻的圣诞礼物,读懂反讽与主题。", en: "O. Henry's twist: a poor couple's Christmas gifts — irony and theme." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+  { id: "a3", code: "FB3", moduleId: "m10", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "快乐王子", en: "The Happy Prince" },
+    summary: { zh: "王尔德的童话:雕像与燕子的牺牲,读懂象征与情感。", en: "Wilde's tale of a statue and a swallow — symbolism and feeling." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+  { id: "a4", code: "FB4", moduleId: "m10", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "一小时的故事", en: "The Story of an Hour" },
+    summary: { zh: "凯特·肖邦一小时里的心理转折:训练细读与推断。", en: "Chopin's hour-long turn of feeling — close reading and inference." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+  { id: "a5", code: "FB5", moduleId: "m10", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "项链", en: "The Necklace" },
+    summary: { zh: "莫泊桑的经典反转:一条借来的项链改变一生。", en: "Maupassant's famous twist: a borrowed necklace changes a life." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+  { id: "a6", code: "FB6", moduleId: "m10", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "泄密的心", en: "The Tell-Tale Heart" },
+    summary: { zh: "爱伦·坡的哥特独白:紧张语气与不可靠叙述者。", en: "Poe's gothic monologue — tension and an unreliable narrator." },
+    objectives: RC_OBJ(RC_OBJ_FABLE), outline: RC_OUTLINE },
+
+  /* ============ E11 Classic Novels ============ */
+  { id: "b1", code: "NV1", moduleId: "m11", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "傲慢与偏见(开篇)", en: "Pride and Prejudice (Opening)" },
+    summary: { zh: "最著名的开场白之一:反讽的第一句,读懂语气与人物。", en: "One of the most famous openings — irony from the very first line." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+  { id: "b2", code: "NV2", moduleId: "m11", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "圣诞颂歌", en: "A Christmas Carol" },
+    summary: { zh: "狄更斯笔下的斯克鲁奇:吝啬鬼的形象与转变的伏笔。", en: "Dickens's Scrooge — a miser's portrait and the seeds of change." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+  { id: "b3", code: "NV3", moduleId: "m11", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "汤姆·索亚历险记(刷墙)", en: "Tom Sawyer (Whitewashing the Fence)" },
+    summary: { zh: "马克·吐温的刷墙妙计:幽默与对人性的观察。", en: "Twain's whitewashing trick — humor and human nature." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+  { id: "b4", code: "NV4", moduleId: "m11", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "爱丽丝漫游奇境(掉进兔子洞)", en: "Alice in Wonderland (Down the Rabbit-Hole)" },
+    summary: { zh: "跟着爱丽丝掉进兔子洞:荒诞逻辑与好奇心。", en: "Down the rabbit-hole with Alice — nonsense logic and curiosity." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+  { id: "b5", code: "NV5", moduleId: "m11", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "小妇人(开篇)", en: "Little Women (Opening)" },
+    summary: { zh: "四姐妹的圣诞对话:人物性格与家庭主题。", en: "The four sisters at Christmas — character and family." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+  { id: "b6", code: "NV6", moduleId: "m11", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "金银岛(老海盗)", en: "Treasure Island (The Old Sea-Dog)" },
+    summary: { zh: "客栈里的老海盗:悬念铺陈与冒险开场。", en: "The old sea-dog at the inn — suspense and adventure." },
+    objectives: RC_OBJ(RC_OBJ_NOVEL), outline: RC_OUTLINE },
+
+  /* ============ E12 Mystery, Sci-Fi & Gothic ============ */
+  { id: "c1", code: "MY1", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "福尔摩斯:斑点带子案", en: "Sherlock Holmes: The Speckled Band" },
+    summary: { zh: "福尔摩斯的推理:从细节到结论,练侦探式阅读。", en: "Holmes's deduction — reading like a detective, from detail to conclusion." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+  { id: "c2", code: "MY2", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "弗兰肯斯坦(造物苏醒)", en: "Frankenstein (The Creature Awakes)" },
+    summary: { zh: "造物者与怪物:科学、责任与恐惧的经典一幕。", en: "Creator and creature — science, responsibility and dread." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+  { id: "c3", code: "MY3", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "时间机器", en: "The Time Machine" },
+    summary: { zh: "威尔斯的科幻开山:时间旅行的设定与悬念。", en: "Wells's founding sci-fi — the premise of time travel and its suspense." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+  { id: "c4", code: "MY4", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "德拉库拉(哈克的日记)", en: "Dracula (Harker's Journal)" },
+    summary: { zh: "哈克抵达城堡:书信体叙述与哥特氛围。", en: "Harker reaches the castle — epistolary form and gothic mood." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+  { id: "c5", code: "MY5", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "沉睡谷传奇", en: "The Legend of Sleepy Hollow" },
+    summary: { zh: "欧文的美国哥特:无头骑士的传说与氛围渲染。", en: "Irving's American gothic — the Headless Horseman and atmosphere." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+  { id: "c6", code: "MY6", moduleId: "m12", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "黄色墙纸", en: "The Yellow Wallpaper" },
+    summary: { zh: "吉尔曼的心理惊悚:不可靠叙述与象征,极练推断。", en: "Gilman's psychological chiller — unreliable narration and symbol." },
+    objectives: RC_OBJ(RC_OBJ_MYST), outline: RC_OUTLINE },
+
+  /* ============ E13 Speeches, Essays & Nonfiction ============ */
+  { id: "d1", code: "NF1", moduleId: "m13", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "葛底斯堡演说", en: "The Gettysburg Address" },
+    summary: { zh: "林肯 272 词的演讲:结构、修辞与核心论点。", en: "Lincoln's 272-word speech — structure, rhetoric and its core claim." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+  { id: "d2", code: "NF2", moduleId: "m13", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "瓦尔登湖(节选)", en: "Walden (Excerpt)" },
+    summary: { zh: "梭罗为何入林而居:散文的论点与意象。", en: "Why Thoreau went to the woods — argument and imagery in the essay." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+  { id: "d3", code: "NF3", moduleId: "m13", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "论自我", en: "Self-Reliance" },
+    summary: { zh: "爱默生的名篇:自立的主张与格言式句子。", en: "Emerson's essay — the case for self-reliance and its aphorisms." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+  { id: "d4", code: "NF4", moduleId: "m13", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "弗雷德里克·道格拉斯自述", en: "Narrative of Frederick Douglass" },
+    summary: { zh: "道格拉斯的亲历叙述:识字如何点燃自由的渴望。", en: "Douglass's firsthand account — how literacy lit the desire for freedom." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+  { id: "d5", code: "NF5", moduleId: "m13", difficulty: 2, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "环球七十二天(内莉·布莱)", en: "Around the World in 72 Days (Nellie Bly)" },
+    summary: { zh: "内莉·布莱的先驱旅行报道:真实新闻叙事的读法。", en: "Nellie Bly's pioneering travel reporting — reading real journalism." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+  { id: "d6", code: "NF6", moduleId: "m13", difficulty: 3, hours: 2, prereq: [], practice: null, nExamples: 1, nExercises: 5,
+    title: { zh: "贝格尔号航海记", en: "The Voyage of the Beagle" },
+    summary: { zh: "达尔文的观察笔记:科学散文里的描写与推理。", en: "Darwin's field notes — description and reasoning in science writing." },
+    objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
