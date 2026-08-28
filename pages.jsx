@@ -205,7 +205,7 @@ const HomePage = ({ progress, bookmarks, nav, user, onLogin }) => {
               const cs = CHAPTERS.filter((c) => c.moduleId === m.id);
               const done = cs.filter((c) => progress[c.id]).length;
               const isAccent = m.accent === "accent";
-              const roman = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx"][mi];
+              const roman = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi"][mi];
               return (
                 <div key={m.id} className={`mod-card ${isAccent ? "has-accent" : ""}`} onClick={() => nav(`#/m/${m.id}`)}>
                   <div className="topline"><span className="module-no">{m.code}</span><span>{cs.reduce((s, c) => s + c.hours, 0)} {t("hours_unit")}</span></div>
@@ -267,7 +267,7 @@ const ModulePage = ({ moduleId, progress, toggleProgress, nav, user, onLogin }) 
   const isAccent = m.accent === "accent";
   const idx = MODULES.findIndex((x) => x.id === moduleId);
   const modHours = cs.reduce((s, c) => s + c.hours, 0);
-  const roman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"][idx];
+  const roman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI"][idx];
 
   return (
     <div className="page">

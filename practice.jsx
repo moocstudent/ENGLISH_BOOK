@@ -1749,6 +1749,121 @@ function WritingCoach({ data }) {
   );
 }
 
+/* ---- Vocabulary SRS deck (Leitner spaced repetition, saved on device) ---- */
+var SRS_DAY = 86400000;
+var SRS_INTERVAL = [0, SRS_DAY, 3 * SRS_DAY, 7 * SRS_DAY, 16 * SRS_DAY, 35 * SRS_DAY];
+var SRS_MAX = 5;
+
+function SrsDeck({ data }) {
+  const lang = useLang();
+  const L = (o) => (o ? (lang === "zh" ? (o.zh || o.en) : (o.en || o.zh)) : "");
+  const cards = (data && data.cards) || [];
+  const storeKey = "ebk_srs_" + (data.deckId || "x");
+  const [state, setState] = React.useState({});
+  const [loaded, setLoaded] = React.useState(false);
+  const [session, setSession] = React.useState(null);
+  const [pos, setPos] = React.useState(0);
+  const [revealed, setRevealed] = React.useState(false);
+  const nowRef = React.useRef(Date.now());
+
+  React.useEffect(() => {
+    let s = {};
+    try { s = JSON.parse(window.localStorage.getItem(storeKey) || "{}") || {}; } catch (e) { s = {}; }
+    setState(s); setLoaded(true); setSession(null); setPos(0); setRevealed(false);
+  }, [storeKey]);
+  const persist = (s) => { setState(s); try { window.localStorage.setItem(storeKey, JSON.stringify(s)); } catch (e) {} };
+
+  const now = Date.now();
+  const key = (c) => c.word;
+  const isDue = (c) => { const st = state[key(c)]; return !st || st.due <= now; };
+  let nw = 0, learning = 0, mastered = 0, due = 0;
+  cards.forEach((c) => { const st = state[key(c)]; if (!st) nw++; else if (st.box >= 4) mastered++; else learning++; if (!st || st.due <= now) due++; });
+
+  const startStudy = (all) => { nowRef.current = Date.now(); const q = cards.filter((c) => all || isDue(c)); setSession(q.slice()); setPos(0); setRevealed(false); };
+  const endStudy = () => { setSession(null); setPos(0); setRevealed(false); };
+  const resetDeck = () => { if (session) endStudy(); persist({}); };
+  const rate = (kind) => {
+    const c = session[pos];
+    const st = state[key(c)] || { box: 0, due: 0 };
+    let nb, d;
+    if (kind === "again") { nb = 1; d = now + SRS_DAY; }
+    else if (kind === "good") { nb = Math.min(st.box + 1, SRS_MAX); d = now + SRS_INTERVAL[nb]; }
+    else { nb = Math.min(st.box + 2, SRS_MAX); d = now + SRS_INTERVAL[nb]; }
+    const ns = Object.assign({}, state); ns[key(c)] = { box: nb, due: d };
+    persist(ns);
+    const sess = session.slice();
+    if (kind === "again") sess.push(c);
+    setSession(sess); setPos(pos + 1); setRevealed(false);
+  };
+  const dayLabel = (ms) => { const d = Math.round(ms / SRS_DAY); return d <= 0 ? (lang === "zh" ? "<1天" : "<1d") : d + (lang === "zh" ? "天" : "d"); };
+
+  if (!loaded) return null;
+  const pct = cards.length ? Math.round((mastered / cards.length) * 100) : 0;
+  const StatsBar = (
+    <div style={{ marginBottom: 12 }}>
+      <div className="tiny" style={{ display: "flex", gap: 14, color: "var(--muted)", flexWrap: "wrap" }}>
+        <span>{lang === "zh" ? "共" : "Total"} {cards.length}</span>
+        <span>{lang === "zh" ? "未学" : "New"} {nw}</span>
+        <span>{lang === "zh" ? "学习中" : "Learning"} {learning}</span>
+        <span style={{ color: "var(--accent)" }}>{lang === "zh" ? "已掌握" : "Mastered"} {mastered}</span>
+        <span style={{ marginLeft: "auto", color: due ? "#b8860b" : "var(--muted)" }}>{lang === "zh" ? "待复习" : "Due"} {due}</span>
+      </div>
+      <div style={{ height: 6, background: "var(--hairline)", marginTop: 6 }}><div style={{ height: "100%", width: pct + "%", background: "var(--accent)" }} /></div>
+    </div>
+  );
+
+  const inSession = session !== null;
+  const done = inSession && pos >= session.length;
+  const cur = inSession && !done ? session[pos] : null;
+
+  return (
+    <div className="srs-deck" style={{ border: "1px solid var(--hairline-strong)", padding: 16, margin: "4px 0 14px", background: "var(--surface)" }}>
+      {data.intro ? <div style={{ fontSize: 14, color: "var(--ink-soft)", marginBottom: 10 }}>🃏 {L(data.intro)}</div> : null}
+      {StatsBar}
+      {!inSession ? (
+        <div style={{ textAlign: "center", padding: "8px 0" }}>
+          {due > 0
+            ? <button type="button" className="btn btn-accent" onClick={() => startStudy(false)}>{lang === "zh" ? `开始复习(${due} 张)` : `Start review (${due})`}</button>
+            : <div style={{ color: "var(--accent)", marginBottom: 10 }}>🎉 {lang === "zh" ? "今天没有待复习的卡片,已排好下次复习时间。" : "Nothing due right now — the next reviews are scheduled."}</div>}
+          <div style={{ marginTop: 10, display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+            <button type="button" className="btn" onClick={() => startStudy(true)}>{lang === "zh" ? "全部再练一遍" : "Study all"}</button>
+            <button type="button" className="btn" onClick={resetDeck}>{lang === "zh" ? "重置进度" : "Reset progress"}</button>
+          </div>
+        </div>
+      ) : done ? (
+        <div style={{ textAlign: "center", padding: "8px 0" }}>
+          <div style={{ color: "var(--accent)", fontSize: 16, marginBottom: 10 }}>✓ {lang === "zh" ? "本轮完成!" : "Session complete!"}</div>
+          <button type="button" className="btn" onClick={endStudy}>{lang === "zh" ? "返回" : "Back"}</button>
+        </div>
+      ) : (
+        <div>
+          <div className="tiny" style={{ color: "var(--muted)", textAlign: "right", marginBottom: 4 }}>{pos + 1} / {session.length}</div>
+          <div style={{ minHeight: 120, border: "1px solid var(--hairline)", padding: "18px 16px", background: "var(--bg)", textAlign: "center" }}>
+            <div style={{ fontSize: 26, fontWeight: 600 }}><span className="en-text">{cur.word}</span> <SpeakBtn text={cur.word} /></div>
+            {cur.pos || cur.phon ? <div className="tiny" style={{ color: "var(--muted)", marginTop: 4 }}>{cur.pos ? cur.pos + "  " : ""}{cur.phon || ""}</div> : null}
+            {revealed ? (
+              <div style={{ marginTop: 12, borderTop: "1px dashed var(--hairline)", paddingTop: 12 }}>
+                <div style={{ fontSize: 17 }}>{pick(lang, cur.gloss)}</div>
+                {cur.example ? <div style={{ fontSize: 14, color: "var(--ink-soft)", marginTop: 8, fontStyle: "italic" }}>"{cur.example}"</div> : null}
+              </div>
+            ) : null}
+          </div>
+          {!revealed ? (
+            <div style={{ textAlign: "center", marginTop: 10 }}><button type="button" className="btn btn-accent" onClick={() => setRevealed(true)}>{lang === "zh" ? "显示释义" : "Show answer"}</button></div>
+          ) : (
+            <div style={{ display: "flex", gap: 8, marginTop: 10, justifyContent: "center", flexWrap: "wrap" }}>
+              <button type="button" className="btn" style={{ borderColor: "#c0392b", color: "#c0392b" }} onClick={() => rate("again")}>{lang === "zh" ? "没记住" : "Again"} <span className="tiny">(&lt;1{lang === "zh" ? "天" : "d"})</span></button>
+              <button type="button" className="btn" onClick={() => rate("good")}>{lang === "zh" ? "记得" : "Good"} <span className="tiny">({dayLabel(SRS_INTERVAL[Math.min((state[key(cur)] ? state[key(cur)].box : 0) + 1, SRS_MAX)])})</span></button>
+              <button type="button" className="btn btn-accent" onClick={() => rate("easy")}>{lang === "zh" ? "很简单" : "Easy"} <span className="tiny">({dayLabel(SRS_INTERVAL[Math.min((state[key(cur)] ? state[key(cur)].box : 0) + 2, SRS_MAX)])})</span></button>
+            </div>
+          )}
+        </div>
+      )}
+      <div className="tiny" style={{ color: "var(--muted)", marginTop: 10 }}>{lang === "zh" ? "间隔重复:记得越牢,下次复习间隔越长;进度保存在本机。" : "Spaced repetition: the better you know a card, the longer until it returns. Progress is saved on this device."}</div>
+    </div>
+  );
+}
+
 function PracticePanel({ config }) {
   const lang = useLang();
   const t = useT();
@@ -1758,6 +1873,7 @@ function PracticePanel({ config }) {
       {config.listening ? <ListeningPlayer data={config.listening} /> : null}
       {config.speaking ? <SpeakingCoach data={config.speaking} /> : null}
       {config.writing ? <WritingCoach data={config.writing} /> : null}
+      {config.srs ? <SrsDeck data={config.srs} /> : null}
       {config.speak ? <SpeakRow items={config.speak} /> : null}
       {config.scenes ? (
         <>

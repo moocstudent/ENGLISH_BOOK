@@ -166,6 +166,14 @@ const MODULES = [
       en: "Six real writing tasks (apology email, request email, opinion paragraph, complaint letter, chart description, for-and-against). Write in the box, press Get feedback for instant word-count, task-point and common-mistake feedback, then compare with the criteria and a model. Drafts auto-save on your device.",
     },
   },
+  {
+    id: "m21", code: "E21", zh: "词汇卡片 · 间隔重复", en: "Vocabulary SRS (Flashcards)", accent: "accent", level: 2,
+    tagline: { zh: "用间隔重复,把词汇记牢。", en: "Lock in vocabulary with spaced repetition." },
+    description: {
+      zh: "六副主题词汇卡片(短语动词、学术词、商务词、日常搭配、易混词、描述形容词),采用间隔重复:每张卡自评「没记住 / 记得 / 很简单」,系统据此安排下次复习——越熟的词间隔越长。进度自动保存在本机。",
+      en: "Six themed flashcard decks (phrasal verbs, academic words, business words, collocations, confusable words, describing adjectives) with spaced repetition: rate each card Again/Good/Easy and the app schedules the next review — better-known words return less often. Progress auto-saves on your device.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -243,6 +251,18 @@ const WR_OBJ = [
   { zh: "覆盖任务要点(称呼、原因、请求、结尾等)", en: "Cover the task's required points" },
   { zh: "用连接词与常用句型让表达连贯", en: "Use linkers and set phrases for coherence" },
   { zh: "用即时反馈自查字数、要点与常见错误", en: "Self-check length, points and common errors with instant feedback" },
+];
+
+const VS_OUTLINE = [
+  { zh: "间隔重复卡片(交互)", en: "Spaced-repetition cards (interactive)" },
+  { zh: "词表", en: "Word list" },
+  { zh: "使用说明", en: "How it works" },
+];
+const VS_OBJ = [
+  { zh: "用间隔重复系统高效记忆本主题的高频词汇", en: "Memorise the topic's high-frequency words with spaced repetition" },
+  { zh: "看词回忆意思,再自评「没记住 / 记得 / 很简单」", en: "Recall the meaning, then rate Again / Good / Easy honestly" },
+  { zh: "结合音标、词性与例句整体记忆", en: "Learn each item with its IPA, part of speech and example" },
+  { zh: "利用自动排期,把难词多复习、熟词少复习", en: "Let scheduling drill weak cards more and known cards less" },
 ];
 
 const CHAPTERS = [
@@ -1290,6 +1310,32 @@ const CHAPTERS = [
     title: { zh: "利弊短文", en: "A For-and-Against Paragraph" },
     summary: { zh: "写一段利弊分析:优点、缺点、连接词与自己的看法。", en: "Weigh pros and cons: an advantage, a disadvantage, linkers and your view." },
     objectives: WR_OBJ, outline: WR_OUTLINE },
+
+  /* ============ E21 Vocabulary SRS (Flashcards) ============ */
+  { id: "vc1", code: "VS1", moduleId: "m21", difficulty: 2, hours: 1, prereq: [], practice: "vc1", nExamples: 0, nExercises: 16,
+    title: { zh: "高频短语动词", en: "High-Frequency Phrasal Verbs" },
+    summary: { zh: "16 张常用短语动词卡片(look up、give up、work out…),用间隔重复记牢。", en: "16 everyday phrasal verbs (look up, give up, work out…), locked in with spaced repetition." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
+  { id: "vc2", code: "VS2", moduleId: "m21", difficulty: 3, hours: 1, prereq: [], practice: "vc2", nExamples: 0, nExercises: 18,
+    title: { zh: "学术高频词", en: "Academic Words" },
+    summary: { zh: "18 张学术写作与阅读高频词卡片(analyse、significant、evidence…)。", en: "18 high-frequency academic words for reading and essays (analyse, significant, evidence…)." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
+  { id: "vc3", code: "VS3", moduleId: "m21", difficulty: 2, hours: 1, prereq: [], practice: "vc3", nExamples: 0, nExercises: 18,
+    title: { zh: "商务与职场词汇", en: "Business & Work Vocabulary" },
+    summary: { zh: "18 张商务与职场常用词卡片(deadline、client、schedule…)。", en: "18 common business and workplace words (deadline, client, schedule…)." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
+  { id: "vc4", code: "VS4", moduleId: "m21", difficulty: 2, hours: 1, prereq: [], practice: "vc4", nExamples: 0, nExercises: 18,
+    title: { zh: "日常搭配", en: "Everyday Collocations" },
+    summary: { zh: "18 张地道搭配卡片(make a decision、take a break、heavy rain…)。", en: "18 natural collocations (make a decision, take a break, heavy rain…)." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
+  { id: "vc5", code: "VS5", moduleId: "m21", difficulty: 3, hours: 1, prereq: [], practice: "vc5", nExamples: 0, nExercises: 18,
+    title: { zh: "易混词辨析", en: "Confusable Words" },
+    summary: { zh: "18 张易混词卡片(affect/effect、advice/advise、its/it's…),看例句分清用法。", en: "18 confusable words (affect/effect, advice/advise, its/it's…) sorted out with examples." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
+  { id: "vc6", code: "VS6", moduleId: "m21", difficulty: 2, hours: 1, prereq: [], practice: "vc6", nExamples: 0, nExercises: 18,
+    title: { zh: "描述与情感形容词", en: "Describing & Feelings Adjectives" },
+    summary: { zh: "18 张描述性格与情绪的形容词卡片(reliable、anxious、delighted…)。", en: "18 adjectives for personality and emotion (reliable, anxious, delighted…)." },
+    objectives: VS_OBJ, outline: VS_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
