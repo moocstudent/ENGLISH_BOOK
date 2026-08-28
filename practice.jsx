@@ -1451,12 +1451,108 @@ const PRACTICE = {
   },
 };
 
+/* ---- Listening player (browser text-to-speech) ---- */
+function ListeningPlayer({ data }) {
+  const lang = useLang();
+  const L = (o) => (o ? (lang === "zh" ? (o.zh || o.en) : (o.en || o.zh)) : "");
+  const lines = (data && data.lines) || [];
+  const [playing, setPlaying] = React.useState(false);
+  const [cur, setCur] = React.useState(-1);
+  const [rate, setRate] = React.useState(data && data.rate ? data.rate : 0.9);
+  const [showText, setShowText] = React.useState(false);
+  const stopRef = React.useRef(false);
+  const voicesRef = React.useRef([]);
+  const hasTTS = typeof window !== "undefined" && !!window.speechSynthesis;
+
+  React.useEffect(() => {
+    if (!hasTTS) return undefined;
+    const load = () => { try { voicesRef.current = window.speechSynthesis.getVoices().filter((v) => /^en/i.test(v.lang)); } catch (e) {} };
+    load();
+    try { window.speechSynthesis.addEventListener("voiceschanged", load); } catch (e) {}
+    return () => { try { window.speechSynthesis.cancel(); window.speechSynthesis.removeEventListener("voiceschanged", load); } catch (e) {} };
+  }, []);
+
+  const pickVoice = (who) => {
+    const vs = voicesRef.current;
+    if (!vs || !vs.length) return null;
+    if (who && vs.length > 1) return vs[who.toUpperCase().charCodeAt(0) % vs.length];
+    return vs[0];
+  };
+  const stop = () => { stopRef.current = true; try { window.speechSynthesis.cancel(); } catch (e) {} setPlaying(false); setCur(-1); };
+  const utter = (line) => {
+    const u = new SpeechSynthesisUtterance(line.en);
+    u.lang = "en-US"; u.rate = rate;
+    const v = pickVoice(line.who); if (v) u.voice = v;
+    return u;
+  };
+  const playFrom = (start) => {
+    if (!hasTTS) return;
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    stopRef.current = false; setPlaying(true);
+    let i = start;
+    const next = () => {
+      if (stopRef.current || i >= lines.length) { setPlaying(false); setCur(-1); return; }
+      setCur(i);
+      const u = utter(lines[i]);
+      u.onend = () => { i += 1; if (!stopRef.current) next(); };
+      u.onerror = () => { i += 1; if (!stopRef.current) next(); };
+      try { window.speechSynthesis.speak(u); } catch (e) { setPlaying(false); setCur(-1); }
+    };
+    next();
+  };
+  const playLine = (i) => {
+    if (!hasTTS) return;
+    stopRef.current = true;
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    setPlaying(false); setCur(i);
+    const u = utter(lines[i]); u.onend = () => setCur(-1);
+    try { window.speechSynthesis.speak(u); } catch (e) {}
+  };
+
+  if (!hasTTS) return <div className="practice-hint">{lang === "zh" ? "当前浏览器不支持语音播放,请换用 Chrome/Edge/Safari 等。" : "This browser has no speech synthesis — try Chrome, Edge or Safari."}</div>;
+
+  const spd = [[0.7, "0.75×"], [0.9, "0.9×"], [1.0, "1.0×"]];
+  return (
+    <div className="listening-player" style={{ border: "1px solid var(--hairline-strong)", padding: 16, margin: "4px 0 14px", background: "var(--surface)" }}>
+      {data.intro ? <div style={{ fontSize: 14, color: "var(--ink-soft)", marginBottom: 12 }}>🎧 {L(data.intro)}</div> : null}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+        {!playing
+          ? <button type="button" className="btn btn-accent" onClick={() => playFrom(0)}>▶ {lang === "zh" ? "播放" : "Play"}</button>
+          : <button type="button" className="btn" onClick={stop}>⏹ {lang === "zh" ? "停止" : "Stop"}</button>}
+        <button type="button" className="btn" onClick={() => playFrom(0)}>↻ {lang === "zh" ? "重播" : "Replay"}</button>
+        <span style={{ marginLeft: 6, fontSize: 12, color: "var(--muted)" }}>{lang === "zh" ? "语速" : "Speed"}</span>
+        {spd.map(([r, lbl]) => (
+          <button key={r} type="button" className="btn" style={{ padding: "2px 9px", fontWeight: rate === r ? 700 : 400, borderColor: rate === r ? "var(--accent)" : undefined, color: rate === r ? "var(--accent)" : undefined }} onClick={() => setRate(r)}>{lbl}</button>
+        ))}
+        <button type="button" className="btn" style={{ marginLeft: "auto" }} onClick={() => setShowText((s) => !s)}>{showText ? (lang === "zh" ? "隐藏原文" : "Hide transcript") : (lang === "zh" ? "显示原文" : "Show transcript")}</button>
+      </div>
+      {showText ? (
+        <div style={{ marginTop: 12, borderTop: "1px solid var(--hairline)", paddingTop: 10 }}>
+          {lines.map((ln, i) => (
+            <div key={i} style={{ padding: "5px 6px", display: "flex", gap: 8, alignItems: "baseline", background: cur === i ? "var(--hairline)" : "transparent" }}>
+              <button type="button" className="speak-btn" title={lang === "zh" ? "播放此句" : "play line"} onClick={() => playLine(i)}>▶</button>
+              <div>
+                {ln.who ? <strong style={{ marginRight: 6 }}>{ln.who}:</strong> : null}
+                <span className="en-text">{ln.en}</span>
+                {lang === "zh" && ln.zh ? <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 2 }}>{ln.zh}</div> : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ marginTop: 10, fontSize: 12, color: "var(--muted)" }}>{lang === "zh" ? "先听音频作答下面的题,再点「显示原文」核对。" : "Listen and answer the questions below first, then reveal the transcript to check."}</div>
+      )}
+    </div>
+  );
+}
+
 function PracticePanel({ config }) {
   const lang = useLang();
   const t = useT();
   if (!config) return null;
   return (
     <div className="practice" onClick={(e) => e.stopPropagation()}>
+      {config.listening ? <ListeningPlayer data={config.listening} /> : null}
       {config.speak ? <SpeakRow items={config.speak} /> : null}
       {config.scenes ? (
         <>

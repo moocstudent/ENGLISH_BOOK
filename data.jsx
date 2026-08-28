@@ -134,6 +134,14 @@ const MODULES = [
       en: "Collocations, phrasal verbs, confusable words, dependent prepositions and academic word choice — 180 items for when every option looks possible.",
     },
   },
+  {
+    id: "m17", code: "E17", zh: "听力实训 · 音频", en: "Listening Lab (Audio)", accent: "accent", level: 2,
+    tagline: { zh: "戴上耳机,听真实的英语。", en: "Headphones on — real English by ear." },
+    description: {
+      zh: "六段可播放音频(浏览器语音合成朗读):日常对话、电话留言、广播通知、面试与短讲——先听后答,再对照原文、生词与解析。可调语速、逐句重播。",
+      en: "Six playable audio clips (read aloud by the browser's speech synthesis) — everyday dialogues, a voicemail, an announcement, an interview and a short talk. Listen, answer, then check the transcript. Adjustable speed, line-by-line replay.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -171,6 +179,20 @@ const BK_OBJ = (first) => [
 const BK_OBJ_NEWS = { zh: "在真实话题语境中选词填空", en: "Complete blanks in real-world contexts" };
 const BK_OBJ_GRAM = { zh: "依据语法规则选出唯一正确形式", en: "Choose the single correct form by grammar rules" };
 const BK_OBJ_VOCAB = { zh: "辨析搭配与词义,选最自然的词", en: "Pick the most natural word by sense and collocation" };
+
+/* Shared metadata for the Listening Lab chapters (E17) */
+const AU_OUTLINE = [
+  { zh: "听力音频与问题(交互)", en: "Audio + questions (interactive)" },
+  { zh: "听力原文", en: "Transcript" },
+  { zh: "生词与短语", en: "Vocabulary" },
+  { zh: "背景与理解", en: "Notes" },
+];
+const AU_OBJ = [
+  { zh: "听懂日常对话/独白的主旨与关键细节", en: "Catch the gist and key details of everyday speech" },
+  { zh: "抓住数字、地点、选择、拼读等具体信息", en: "Catch numbers, places, choices and spellings" },
+  { zh: "适应自然语速与连读、弱读", en: "Cope with natural pace, linking and weak forms" },
+  { zh: "先听后答,再用原文自我核对", en: "Listen, answer, then self-check with the transcript" },
+];
 
 const CHAPTERS = [
   /* ============ E1 Tenses & Verbs ============ */
@@ -1113,6 +1135,32 @@ const CHAPTERS = [
     title: { zh: "学术用词与衔接", en: "Academic Word Choice & Linking" },
     summary: { zh: "正式用词与论证衔接:选更得体、更精确的词。", en: "Formal word choice and linking — pick the more precise, appropriate word." },
     objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+
+  /* ============ E17 Listening Lab (audio via speech synthesis) ============ */
+  { id: "au1", code: "LA1", moduleId: "m17", difficulty: 2, hours: 2, prereq: [], practice: "au1", nExamples: 0, nExercises: 5,
+    title: { zh: "咖啡馆点单(对话)", en: "Ordering at a Café (Dialogue)" },
+    summary: { zh: "听懂饮品、规格、做法、堂食/外带与价格等关键信息。", en: "Catch the drink, size, options, for-here/to-go and the price." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au2", code: "LA2", moduleId: "m17", difficulty: 2, hours: 2, prereq: [], practice: "au2", nExamples: 0, nExercises: 5,
+    title: { zh: "问路(对话)", en: "Asking for Directions (Dialogue)" },
+    summary: { zh: "听懂路线、地标、转弯与距离,画出到达路径。", en: "Follow the route — landmarks, turns and distances." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au3", code: "LA3", moduleId: "m17", difficulty: 2, hours: 2, prereq: [], practice: "au3", nExamples: 0, nExercises: 5,
+    title: { zh: "电话留言(独白)", en: "A Phone Voicemail (Monologue)" },
+    summary: { zh: "听懂来电事由、时间安排与回电号码。", en: "Catch the reason for the call, the timing and the callback number." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au4", code: "LA4", moduleId: "m17", difficulty: 3, hours: 2, prereq: [], practice: "au4", nExamples: 0, nExercises: 5,
+    title: { zh: "机场与车站广播(独白)", en: "Airport & Station Announcements" },
+    summary: { zh: "听懂航班/列车、登机口/站台、延误与时间。", en: "Catch the flight/train, gate/platform, delays and times." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au5", code: "LA5", moduleId: "m17", difficulty: 3, hours: 2, prereq: [], practice: "au5", nExamples: 0, nExercises: 5,
+    title: { zh: "工作面试片段(对话)", en: "A Job Interview (Dialogue)" },
+    summary: { zh: "听懂经历、优势、问题与回答要点。", en: "Catch the candidate's experience, strengths and the questions." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
+  { id: "au6", code: "LA6", moduleId: "m17", difficulty: 3, hours: 2, prereq: [], practice: "au6", nExamples: 0, nExercises: 5,
+    title: { zh: "短讲:一个有趣的话题(独白)", en: "A Short Talk (Monologue)" },
+    summary: { zh: "听懂短讲的主旨、要点与举例,练听讲笔记。", en: "Catch the main idea, key points and examples of a short talk." },
+    objectives: AU_OBJ, outline: AU_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
