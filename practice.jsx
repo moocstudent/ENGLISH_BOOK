@@ -1483,7 +1483,8 @@ function PracticePanel({ config }) {
 
 function Practice({ name }) {
   const t = useT();
-  const cfg = PRACTICE[name];
+  const extra = (typeof window !== "undefined" && window.PRACTICE_EXTRA) ? window.PRACTICE_EXTRA[name] : null;
+  const cfg = PRACTICE[name] || extra;
   if (!cfg) return <p className="practice-hint">{t("no_practice")}</p>;
   return <PracticePanel config={cfg} key={name} />;
 }

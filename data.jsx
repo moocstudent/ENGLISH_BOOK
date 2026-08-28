@@ -110,6 +110,30 @@ const MODULES = [
       en: "Six public-domain nonfiction texts — Lincoln's Gettysburg Address, Thoreau's Walden, Emerson's Self-Reliance, Douglass's Narrative, Nellie Bly's reporting and Darwin's Voyage of the Beagle.",
     },
   },
+  {
+    id: "m14", code: "E14", zh: "时事与真实事件", en: "News & Real Events", accent: "accent", level: 2,
+    tagline: { zh: "用真实世界练完形填空。", en: "Cloze practice on the real world." },
+    description: {
+      zh: "以英美与世界的真实机构、地标、历史、科技、环境、商业与文体为背景的完形填空题库,共 180 道单句选词填空,做完即时判分并附解析。",
+      en: "A cloze bank set against real UK/US and world institutions, history, science, environment, business and culture — 180 single-sentence items, scored with explanations.",
+    },
+  },
+  {
+    id: "m15", code: "E15", zh: "语法填空", en: "Grammar in Context", accent: "primary", level: 2,
+    tagline: { zh: "在句子里把语法规则练成直觉。", en: "Turn grammar rules into instinct, in context." },
+    description: {
+      zh: "时态、冠词、介词、连接词、非谓语与从句/被动——180 道语法填空,凭规则选出唯一正确形式,附中英解析。",
+      en: "Tenses, articles, prepositions, connectors, non-finites and clauses/passive — 180 grammar gap-fills with a single correct form and bilingual notes.",
+    },
+  },
+  {
+    id: "m16", code: "E16", zh: "词汇与搭配", en: "Vocabulary & Collocation", accent: "accent", level: 3,
+    tagline: { zh: "选对那个「最自然」的词。", en: "Pick the word that simply sounds right." },
+    description: {
+      zh: "动名搭配、形容词与副词搭配、短语动词、易混词、固定介词与学术用词——180 道选词题,专治「意思都懂却选错」。",
+      en: "Collocations, phrasal verbs, confusable words, dependent prepositions and academic word choice — 180 items for when every option looks possible.",
+    },
+  },
 ];
 
 /* Shared metadata for the Reading Anthology chapters (E10–E13) */
@@ -130,6 +154,23 @@ const RC_OBJ_FABLE = { zh: "读懂寓言与短篇的寓意与转折", en: "Grasp
 const RC_OBJ_NOVEL = { zh: "读懂小说开篇的人物、场景与基调", en: "Read a novel's opening — character, scene and mood" };
 const RC_OBJ_MYST = { zh: "跟随情节线索,读懂悬念与氛围", en: "Follow the plot; read suspense and atmosphere" };
 const RC_OBJ_NONFIC = { zh: "读懂论点、论据与作者立场", en: "Grasp the claim, evidence and the author's stance" };
+
+/* Shared metadata for the Gap-Fill / Cloze Bank chapters (E14–E16) */
+const BK_OUTLINE = [
+  { zh: "30 道单句完形填空", en: "30 single-sentence cloze items" },
+  { zh: "上方交互作答,即时判分", en: "Answer above; scored on the spot" },
+  { zh: "逐题中英文解析", en: "Per-item bilingual explanations" },
+  { zh: "原创命题,取材真实话题", en: "Original items on real-world topics" },
+];
+const BK_OBJ = (first) => [
+  first,
+  { zh: "读懂空格前后的搭配与逻辑", en: "Read the collocation and logic around the blank" },
+  { zh: "排除近义或形近的干扰项", en: "Eliminate near-synonym and look-alike distractors" },
+  { zh: "通过自测查漏补缺", en: "Find and fix weak points by self-testing" },
+];
+const BK_OBJ_NEWS = { zh: "在真实话题语境中选词填空", en: "Complete blanks in real-world contexts" };
+const BK_OBJ_GRAM = { zh: "依据语法规则选出唯一正确形式", en: "Choose the single correct form by grammar rules" };
+const BK_OBJ_VOCAB = { zh: "辨析搭配与词义,选最自然的词", en: "Pick the most natural word by sense and collocation" };
 
 const CHAPTERS = [
   /* ============ E1 Tenses & Verbs ============ */
@@ -994,6 +1035,84 @@ const CHAPTERS = [
     title: { zh: "贝格尔号航海记", en: "The Voyage of the Beagle" },
     summary: { zh: "达尔文的观察笔记:科学散文里的描写与推理。", en: "Darwin's field notes — description and reasoning in science writing." },
     objectives: RC_OBJ(RC_OBJ_NONFIC), outline: RC_OUTLINE },
+
+  /* ============ E14 News & Real Events (cloze bank) ============ */
+  { id: "g1", code: "NE1", moduleId: "m14", difficulty: 2, hours: 2, prereq: [], practice: "g1", nExamples: 0, nExercises: 30,
+    title: { zh: "英国:机构 · 地标 · 历史", en: "Britain: Institutions & History" },
+    summary: { zh: "议会、王室、NHS、BBC 与地标:真实话题里的选词填空。", en: "Parliament, the monarchy, the NHS, the BBC and landmarks — cloze on real UK topics." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+  { id: "g2", code: "NE2", moduleId: "m14", difficulty: 2, hours: 2, prereq: [], practice: "g2", nExamples: 0, nExercises: 30,
+    title: { zh: "美国:机构 · 地标 · 历史", en: "The United States: Institutions & History" },
+    summary: { zh: "宪法、国会、总统与国家公园:真实话题里的选词填空。", en: "The Constitution, Congress, presidents and national parks — cloze on real US topics." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+  { id: "g3", code: "NE3", moduleId: "m14", difficulty: 3, hours: 2, prereq: [], practice: "g3", nExamples: 0, nExercises: 30,
+    title: { zh: "科技里程碑", en: "Science & Technology" },
+    summary: { zh: "航天、计算机、互联网与医学:真实科技话题填空。", en: "Space, computing, the internet and medicine — cloze on real science and tech." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+  { id: "g4", code: "NE4", moduleId: "m14", difficulty: 2, hours: 2, prereq: [], practice: "g4", nExamples: 0, nExercises: 30,
+    title: { zh: "环境与气候", en: "Environment & Climate" },
+    summary: { zh: "气候变化、可再生能源与生态保护:真实话题填空。", en: "Climate change, renewable energy and conservation — cloze on real topics." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+  { id: "g5", code: "NE5", moduleId: "m14", difficulty: 3, hours: 2, prereq: [], practice: "g5", nExamples: 0, nExercises: 30,
+    title: { zh: "商业与经济", en: "Business & Economy" },
+    summary: { zh: "公司、贸易、市场与经济概念:真实话题里的选词填空。", en: "Companies, trade, markets and economic ideas — cloze on real topics." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+  { id: "g6", code: "NE6", moduleId: "m14", difficulty: 2, hours: 2, prereq: [], practice: "g6", nExamples: 0, nExercises: 30,
+    title: { zh: "体育与文化", en: "Sport & Culture" },
+    summary: { zh: "奥运、足球、音乐、电影与节庆:真实话题里的选词填空。", en: "The Olympics, football, music, film and festivals — cloze on real culture." },
+    objectives: BK_OBJ(BK_OBJ_NEWS), outline: BK_OUTLINE },
+
+  /* ============ E15 Grammar in Context (gap-fill bank) ============ */
+  { id: "h1", code: "GR1", moduleId: "m15", difficulty: 2, hours: 2, prereq: [], practice: "h1", nExamples: 0, nExercises: 30,
+    title: { zh: "动词时态与体", en: "Verb Tenses & Aspect" },
+    summary: { zh: "现在、过去、完成、将来:选出正确的时态形式。", en: "Present, past, perfect, future — choose the correct tense form." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+  { id: "h2", code: "GR2", moduleId: "m15", difficulty: 2, hours: 2, prereq: [], practice: "h2", nExamples: 0, nExercises: 30,
+    title: { zh: "冠词 · 限定词 · 量词", en: "Articles, Determiners & Quantifiers" },
+    summary: { zh: "a/an/the/零冠词与 some/many/few:选对限定词。", en: "a/an/the/zero and some/many/few — pick the right determiner." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+  { id: "h3", code: "GR3", moduleId: "m15", difficulty: 2, hours: 2, prereq: [], practice: "h3", nExamples: 0, nExercises: 30,
+    title: { zh: "介词", en: "Prepositions" },
+    summary: { zh: "时间、地点、方向与固定介词搭配。", en: "Time, place, movement and dependent prepositions." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+  { id: "h4", code: "GR4", moduleId: "m15", difficulty: 3, hours: 2, prereq: [], practice: "h4", nExamples: 0, nExercises: 30,
+    title: { zh: "连接词与语篇标记", en: "Connectors & Discourse Markers" },
+    summary: { zh: "however/therefore/although…:按逻辑选连接词。", en: "however/therefore/although… — choose the linker by logic." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+  { id: "h5", code: "GR5", moduleId: "m15", difficulty: 3, hours: 2, prereq: [], practice: "h5", nExamples: 0, nExercises: 30,
+    title: { zh: "非谓语与情态", en: "Non-finite Verbs & Modals" },
+    summary: { zh: "不定式/动名词/分词与情态动词的选用。", en: "Infinitive/gerund/participle and modal verbs." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+  { id: "h6", code: "GR6", moduleId: "m15", difficulty: 3, hours: 2, prereq: [], practice: "h6", nExamples: 0, nExercises: 30,
+    title: { zh: "定语从句 · 条件句 · 被动", en: "Relative Clauses, Conditionals & Passive" },
+    summary: { zh: "who/which、if 条件句与被动语态。", en: "who/which, if-conditionals and the passive." },
+    objectives: BK_OBJ(BK_OBJ_GRAM), outline: BK_OUTLINE },
+
+  /* ============ E16 Vocabulary & Collocation (word-choice bank) ============ */
+  { id: "j1", code: "VC1", moduleId: "m16", difficulty: 2, hours: 2, prereq: [], practice: "j1", nExamples: 0, nExercises: 30,
+    title: { zh: "动词 + 名词搭配", en: "Verb–Noun Collocations" },
+    summary: { zh: "make/do/take/have/pay + 名词:选对动词。", en: "make/do/take/have/pay + noun — choose the right verb." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+  { id: "j2", code: "VC2", moduleId: "m16", difficulty: 3, hours: 2, prereq: [], practice: "j2", nExamples: 0, nExercises: 30,
+    title: { zh: "形容词与副词搭配", en: "Adjective & Adverb Collocations" },
+    summary: { zh: "heavy rain、strongly agree…:选对搭配词。", en: "heavy rain, strongly agree… — pick the right collocate." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+  { id: "j3", code: "VC3", moduleId: "m16", difficulty: 3, hours: 2, prereq: [], practice: "j3", nExamples: 0, nExercises: 30,
+    title: { zh: "短语动词", en: "Phrasal Verbs" },
+    summary: { zh: "take off、put off、look into…:选对短语动词。", en: "take off, put off, look into… — choose the right phrasal verb." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+  { id: "j4", code: "VC4", moduleId: "m16", difficulty: 3, hours: 2, prereq: [], practice: "j4", nExamples: 0, nExercises: 30,
+    title: { zh: "易混词辨析", en: "Confusable Words" },
+    summary: { zh: "affect/effect、rise/raise…:选对易混词。", en: "affect/effect, rise/raise… — pick the right one." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+  { id: "j5", code: "VC5", moduleId: "m16", difficulty: 2, hours: 2, prereq: [], practice: "j5", nExamples: 0, nExercises: 30,
+    title: { zh: "固定介词搭配", en: "Fixed Phrases & Dependent Prepositions" },
+    summary: { zh: "depend on、interested in…:选对介词。", en: "depend on, interested in… — choose the right preposition." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
+  { id: "j6", code: "VC6", moduleId: "m16", difficulty: 3, hours: 2, prereq: [], practice: "j6", nExamples: 0, nExercises: 30,
+    title: { zh: "学术用词与衔接", en: "Academic Word Choice & Linking" },
+    summary: { zh: "正式用词与论证衔接:选更得体、更精确的词。", en: "Formal word choice and linking — pick the more precise, appropriate word." },
+    objectives: BK_OBJ(BK_OBJ_VOCAB), outline: BK_OUTLINE },
 ];
 
 const TOTAL_HOURS = CHAPTERS.reduce((s, c) => s + c.hours, 0);
